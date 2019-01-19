@@ -81,6 +81,7 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
     mutate(STATUS=str_trim(substr(PDF_STRING,STATUS_start,STATUS_end),side="both")) %>%
     mutate(CUSIP=str_replace_all(CUSIP," ", "")) %>%
     filter(!str_detect(CUSIP, "CUSIP")) %>%
-    select(-1:-11)
+    select(-1:-11) %>%
+    mutate(YEAR=YEAR_, QUARTER=QUARTER_)
   return(List_13F)
 }
