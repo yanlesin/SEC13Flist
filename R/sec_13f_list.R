@@ -4,21 +4,43 @@ library(dplyr)
 library(purrr)
 library(tidyr)
 library(naniar)
+library(rvest)
 
 #' @title Official List of Section 13(f) Securities
 #'
-#' @description This function downloads, specified by Year and Quarter, Official List of Section 13(f) Securities from SEC website, parses it and returns dataframe.
+#' @description This function downloads, specified by Year and Quarter, Official List of Section 13(f) Securities from SEC website, parses it and returns dataframe. If no parameters provided, function determines year and quarter based on Current List section of SEC website
 #' @param YEAR_ Year for the SEC List
 #' @param QUARTER_ Quarter for the SEC List
 #' @keywords SEC 13F List
 #' @export
 #' @examples
-#' SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3)
+#' SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Download list for Q3 2018
+#' SEC_13F_list_current <- SEC_13F_list() #Current list from SEC.gov will be processed
 
 SEC_13F_list <- function(YEAR_,QUARTER_){
 
   str_split_wrap <- function(text){
     str_split(text,line_separator, simplify = FALSE)
+  }
+
+  url_SEC <- "https://www.sec.gov/divisions/investment/13flists.htm"
+
+  current_list_url <- xml_attrs(
+    html_nodes(
+      read_html(url_SEC),'#block-secgov-content :nth-child(1)'
+    )[[23]]
+  )
+
+  if (missing(YEAR_)) {
+    YEAR_ <- str_sub(current_list_url,str_length(current_list_url)-9,str_length(current_list_url)-6) %>%
+      as.integer()
+    warning("Defaul year: ",YEAR_)
+  }
+
+  if (missing(QUARTER_)) {
+    QUARTER_ <- str_sub(current_list_url,str_length(current_list_url)-4,str_length(current_list_url)-4) %>%
+      as.integer()
+    warning("Defaul quarter: ",QUARTER_)
   }
 
   file_name <- paste0('13flist',YEAR_, 'q', QUARTER_,'.pdf')
