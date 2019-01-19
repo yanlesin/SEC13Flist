@@ -1,3 +1,5 @@
+#Code for getting Current List URL from SEC.gov website
+
 library(rvest)
 library(stringr)
 url_SEC <- "https://www.sec.gov/divisions/investment/13flists.htm"

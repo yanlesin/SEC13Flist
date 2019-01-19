@@ -34,13 +34,13 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
   if (missing(YEAR_)) {
     YEAR_ <- str_sub(current_list_url,str_length(current_list_url)-9,str_length(current_list_url)-6) %>%
       as.integer()
-    warning("Defaul year: ",YEAR_)
+    warning("Defaul year: ", YEAR_)
   }
 
   if (missing(QUARTER_)) {
     QUARTER_ <- str_sub(current_list_url,str_length(current_list_url)-4,str_length(current_list_url)-4) %>%
       as.integer()
-    warning("Defaul quarter: ",QUARTER_)
+    warning("Defaul quarter: ", QUARTER_)
   }
 
   file_name <- paste0('13flist',YEAR_, 'q', QUARTER_,'.pdf')
