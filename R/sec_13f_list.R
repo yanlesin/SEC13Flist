@@ -4,18 +4,16 @@ library(dplyr)
 library(purrr)
 library(tidyr)
 library(naniar)
-library(rvest)
 
 #' @title Official List of Section 13(f) Securities
 #'
-#' @description This function downloads, specified by Year and Quarter, Official List of Section 13(f) Securities from SEC website, parses it and returns dataframe. If no parameters provided, function determines year and quarter based on Current List section of SEC website
+#' @description This function downloads, specified by Year and Quarter, Official List of Section 13(f) Securities from SEC website, parses it and returns dataframe.
 #' @param YEAR_ Year for the SEC List
 #' @param QUARTER_ Quarter for the SEC List
 #' @keywords SEC 13F List
 #' @export
 #' @examples
-#' SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Download list for Q3 2018
-#' SEC_13F_list_current <- SEC_13F_list() #Current list from SEC.gov will be processed
+#' SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3)
 
 SEC_13F_list <- function(YEAR_,QUARTER_){
 
@@ -23,6 +21,7 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
     str_split(text,line_separator, simplify = FALSE)
   }
 
+<<<<<<< HEAD
   url_SEC <- "https://www.sec.gov/divisions/investment/13flists.htm"
 
   current_list_url <- xml_attrs(
@@ -43,6 +42,8 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
     warning("Defaul quarter: ", QUARTER_)
   }
 
+=======
+>>>>>>> f5c5639c957d87792da798e032c1061d356cd66b
   file_name <- paste0('13flist',YEAR_, 'q', QUARTER_,'.pdf')
   download.file(paste0("https://www.sec.gov/divisions/investment/13f/",file_name),file_name,mode='wb')
   #file <- file_name
