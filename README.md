@@ -3,13 +3,16 @@
 
 # SEC13Flist
 
-The goal of SEC13Flist is to return offcial list of Section 13F
-Securities for use in other places.
+The goal of SEC13Flist is to provide routine to work with official list
+of Section 13F Securities.
 
 Function SEC\_13F\_list downloads PDF list from
 [SEC.gov](https://www.sec.gov/divisions/investment/13flists.htm) based
 on supplied year and quarter and returns data frame with list of
-securities from PDF file.
+securities from PDF file, mainitaining the same structure as official
+list. Function appends YEAR and QUARTER columns to each record. Returned
+dataframe/tibble could be customized and filtered according to your
+needs.
 
 ## Installation
 
@@ -22,9 +25,17 @@ devtools::install_github("yanlesin/SEC13Flist")
 
 ## Example
 
-This is example that returns SEC 13F Securities list for Q3 2018.
+These are basic examples of usage:
 
 ``` r
-## basic example code
+## Return list for Q3 2018
 SEC13Flist_2018_Q3 <- SEC_13F_list(2018,3)
+
+## Current list form SEC website
+SEC13Flist_current <- SEC_13F_list() #Current list form SEC website
+
+## Customizing function output
+SEC13Flist_current <- SEC_13F_list() %>% 
+  filter(STATUS!="DELETED") %>% #Filter records with STATUS "DELETED"
+  select(-YEAR,-QUARTER) #Remove YEAR and QUARTER columns
 ```

@@ -16,6 +16,10 @@ library(rvest)
 #' @examples
 #' SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Download list for Q3 2018
 #' SEC_13F_list_current <- SEC_13F_list() #Current list from SEC.gov will be processed
+#' Customizing function output
+#' SEC13Flist_current <- SEC_13F_list() %>%
+#'   filter(STATUS!="DELETED") %>% #Filter records with STATUS "DELETED"
+#'   select(-YEAR,-QUARTER) #Remove YEAR and QUARTER columns
 
 SEC_13F_list <- function(YEAR_,QUARTER_){
 
@@ -31,21 +35,45 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
     )[[23]]
   )
 
+  current_year <- str_sub(current_list_url,str_length(current_list_url)-9,str_length(current_list_url)-6) %>%
+    as.integer()
+
+  current_quarter <- str_sub(current_list_url,str_length(current_list_url)-4,str_length(current_list_url)-4) %>%
+    as.integer()
+
   if (missing(YEAR_)) {
-    YEAR_ <- str_sub(current_list_url,str_length(current_list_url)-9,str_length(current_list_url)-6) %>%
-      as.integer()
+    YEAR_ <- current_year
     warning("Defaul year: ", YEAR_)
   }
 
   if (missing(QUARTER_)) {
-    QUARTER_ <- str_sub(current_list_url,str_length(current_list_url)-4,str_length(current_list_url)-4) %>%
-      as.integer()
+    QUARTER_ <- current_quarter
     warning("Defaul quarter: ", QUARTER_)
   }
 
-  file_name <- paste0('13flist',YEAR_, 'q', QUARTER_,'.pdf')
-  download.file(paste0("https://www.sec.gov/divisions/investment/13f/",file_name),file_name,mode='wb')
-  #file <- file_name
+  #Validating inputs to the function
+  YEAR_ <- as.integer(YEAR_)
+  QUARTER_ <- as.integer(QUARTER_)
+
+  if (is.na(YEAR_)|is.na(QUARTER_)) stop("Error: Please supply integer values for QUARTER_ and YEAR_ starting in Q1 2004")
+
+  if (YEAR_<2004) stop("Error: SEC_13F_list function only works with SEC list files starting at Q1 2004")
+  if (QUARTER_>4) stop("Error: Please, supply integer number for QUARTER_ in range between 1 and 4")
+
+  if (YEAR_>current_year) stop (paste0("Error: no list available for year ",
+                                       YEAR_, ". Please, use integer number in range 2004..", current_year))
+
+  if (YEAR_==2004&QUARTER_==1)
+  {
+    file_name <- "13f-list.pdf"
+    download.file(paste0("https://www.sec.gov/divisions/investment/",file_name),file_name,mode='wb')
+  }
+  else
+  {
+    file_name <- paste0('13flist',YEAR_, 'q', QUARTER_,'.pdf')
+    download.file(paste0("https://www.sec.gov/divisions/investment/13f/",file_name),file_name,mode='wb')
+  }
+
   text <- pdf_text(file_name)
   pages <- length(text)
 
