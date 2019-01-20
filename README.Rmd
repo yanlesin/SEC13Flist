@@ -37,7 +37,7 @@ SEC13Flist_2018_Q3 <- SEC_13F_list(2018,3)
 ## Current list form SEC website
 SEC13Flist_current <- SEC_13F_list() #Current list form SEC website
 
-## Customizing function output
+## Customizing
 SEC13Flist_current <- SEC_13F_list() %>% 
   filter(STATUS!="DELETED") %>% #Filter records with STATUS "DELETED"
   select(-YEAR,-QUARTER) #Remove YEAR and QUARTER columns

@@ -17,6 +17,9 @@ This function downloads, specified by Year and Quarter, Official List of Section
 \examples{
 SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Download list for Q3 2018
 SEC_13F_list_current <- SEC_13F_list() #Current list from SEC.gov will be processed
+SEC13Flist_current <- SEC_13F_list() \%>\%
+  filter(STATUS!="DELETED") \%>\% #Filter records with STATUS "DELETED"
+  select(-YEAR,-QUARTER) #Remove YEAR and QUARTER columns
 }
 \keyword{13F}
 \keyword{List}
