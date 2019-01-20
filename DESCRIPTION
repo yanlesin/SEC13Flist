@@ -1,6 +1,6 @@
 Package: SEC13Flist
 Title: Returns data frame with Official List of Section 13(f) Securities for given Year and Quarter
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: 
     person(given = "Yan",
            family = "Lyesin",
