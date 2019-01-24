@@ -65,13 +65,15 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
   if (YEAR_==2004&QUARTER_==1)
   {
     file_name <- "13f-list.pdf"
-    download.file(paste0("https://www.sec.gov/divisions/investment/",file_name),file_name,mode='wb')
+    download_result <- download.file(paste0("https://www.sec.gov/divisions/investment/",file_name),file_name,mode='wb')
   }
   else
   {
     file_name <- paste0('13flist',YEAR_, 'q', QUARTER_,'.pdf')
-    download.file(paste0("https://www.sec.gov/divisions/investment/13f/",file_name),file_name,mode='wb')
+    download_result <- download.file(paste0("https://www.sec.gov/divisions/investment/13f/",file_name),file_name,mode='wb')
   }
+
+  if (download_result!=0) stop("Error: download.file returned non-zero code")
 
   text <- pdf_text(file_name)
   pages <- length(text)
