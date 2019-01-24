@@ -42,12 +42,12 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
 
   if (missing(YEAR_)) {
     YEAR_ <- current_year
-    warning("Defaul year: ", YEAR_)
+    warning("Default year: ", YEAR_)
   }
 
   if (missing(QUARTER_)) {
     QUARTER_ <- current_quarter
-    warning("Defaul quarter: ", QUARTER_)
+    warning("Default quarter: ", QUARTER_)
   }
 
   #Validating inputs to the function
