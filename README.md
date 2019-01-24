@@ -39,3 +39,25 @@ SEC13Flist_current <- SEC_13F_list() %>%
   filter(STATUS!="DELETED") %>% #Filter records with STATUS "DELETED"
   select(-YEAR,-QUARTER) #Remove YEAR and QUARTER columns
 ```
+
+# Use of CUSIP Codes
+
+According to FAQ section of [CUSIP Global
+Services](https://www.cusip.com/cusip/cgs-license-fees.htm):
+
+> Can firms take CGS Data from public sources and create their own
+> database without signing a license agreement with CGS?
+
+> CGS Data is publicly available in some offering documents and from
+> other sources. Firms can elect to collect this information and store
+> it in their internal databases for non-commercial use, provided that
+> the source of such information permitted the reproduction and use of
+> such information. However, CGS’s experience has been that the CGS data
+> generally has not come from publicly available sources but rather from
+> other sources such as a CGS Authorized Distributor or through
+> improperly scraping websites of CGS customers with valid CGS’
+> licenses. Most end-user customers of CGS Data prefer to enter into a
+> license agreement with CGS for authorized use and to enjoy the
+> benefits of the integrity and functionality of downloadable, timely
+> and accurate data (either from CGS directly or from an Authorized
+> Distributor).
