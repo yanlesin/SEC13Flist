@@ -30,7 +30,7 @@ devtools::install_github("yanlesin/SEC13Flist")
 
 
 CUSIP: chr - CUSIP number of the security  
-HAS_LISTED_OPTIONS: chr - An asterisk idicates that security having a listed option and each option is individually listed with its own CUSIP number immediately below the name of the security having the option  
+HAS_LISTED_OPTION: chr - An asterisk idicates that security having a listed option and each option is individually listed with its own CUSIP number immediately below the name of the security having the option  
 ISSUER_NAME: chr - Issuer Name  
 ISSUER_DESCRIPTION: chr - Issuer Description   
 STATUS: chr - "ADDED" (The security has become a Section 13(f) security) or "DELETED" (The security ceases to be a 13(f) security since the date of the last list) 

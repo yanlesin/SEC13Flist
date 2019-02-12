@@ -26,7 +26,7 @@ devtools::install_github("yanlesin/SEC13Flist")
 ## Description of returned data
 
 CUSIP: chr - CUSIP number of the security  
-HAS\_LISTED\_OPTIONS: chr - An asterisk idicates that security having a
+HAS\_LISTED\_OPTION: chr - An asterisk idicates that security having a
 listed option and each option is individually listed with its own CUSIP
 number immediately below the name of the security having the option  
 ISSUER\_NAME: chr - Issuer Name  
