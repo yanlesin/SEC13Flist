@@ -14,8 +14,8 @@ library(rvest)
 #' @keywords SEC 13F List
 #' @export
 #' @examples
-#' SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Download list for Q3 2018
-#' SEC_13F_list_current <- SEC_13F_list() #Current list from SEC.gov will be processed
+#' SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Download and parse list for Q3 2018
+#' SEC_13F_list_current <- SEC_13F_list() #Download and parse current list from SEC.gov
 #' SEC13Flist_current <- SEC_13F_list() %>%
 #'   filter(STATUS!="DELETED") %>% #Filter records with STATUS "DELETED"
 #'   select(-YEAR,-QUARTER) #Remove YEAR and QUARTER columns
@@ -115,8 +115,8 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
     filter(str_detect(PDF_STRING, "")) %>%
     fill(CUSIP_start, ISSUER_NAME_start, ISSUER_DESCRIPTION_start, STATUS_start, .direction = "down") %>%
     mutate(CUSIP_end=CUSIP_start+11-1) %>%
-    mutate(MAIN_ISSUE_start=CUSIP_end+1) %>%
-    mutate(MAIN_ISSUE_end=ISSUER_NAME_start-1) %>%
+    mutate(HAS_LISTED_OPTION_start=CUSIP_end+1) %>%
+    mutate(HAS_LISTED_OPTION_end=ISSUER_NAME_start-1) %>%
     mutate(ISSUER_NAME_end=ISSUER_DESCRIPTION_start-1) %>%
     mutate(ISSUER_DESCRIPTION_end=STATUS_start-1) %>%
     mutate(STATUS_end=str_length(PDF_STRING)) %>%
@@ -126,7 +126,7 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
 
   List_13F <- text2 %>%
     mutate(CUSIP=substring(PDF_STRING,CUSIP_start,CUSIP_end)) %>%
-    mutate(MAIN_ISSUE=str_trim(substring(PDF_STRING,MAIN_ISSUE_start,MAIN_ISSUE_end),side="both")) %>%
+    mutate(HAS_LISTED_OPTION=str_trim(substring(PDF_STRING,HAS_LISTED_OPTION_start,HAS_LISTED_OPTION_end),side="both")) %>%
     mutate(ISSUER_NAME=str_trim(substring(PDF_STRING,ISSUER_NAME_start,ISSUER_NAME_end),side="both")) %>%
     mutate(ISSUER_DESCRIPTION=str_trim(substring(PDF_STRING,ISSUER_DESCRIPTION_start,ISSUER_DESCRIPTION_end),side="both")) %>%
     mutate(STATUS=str_trim(substr(PDF_STRING,STATUS_start,STATUS_end),side="both")) %>%
