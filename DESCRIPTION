@@ -1,13 +1,13 @@
 Package: SEC13Flist
 Title: Returns data frame with Official List of Section 13(f) Securities for given Year and Quarter
-Version: 0.0.8
+Version: 0.0.9
 Authors@R: 
     person(given = "Yan",
            family = "Lyesin",
            role = c("aut", "cre"),
            email = "yan.lyesin@gmail.com")
 Description: What the package does (one paragraph).
-Depends: pdftools, stringr, dplyr, purrr, tidyr, naniar, rvest
+Depends: pdftools, stringr, dplyr, purrr, tidyr, rvest
 License: CC0
 Encoding: UTF-8
 LazyData: true

@@ -3,7 +3,6 @@ library(stringr)
 library(dplyr)
 library(purrr)
 library(tidyr)
-library(naniar)
 library(rvest)
 
 #' @title Official List of Section 13(f) Securities
@@ -108,7 +107,7 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
     mutate(ISSUER_NAME_start=regexpr("ISSUER NAME", text2$PDF_STRING)) %>%
     mutate(ISSUER_DESCRIPTION_start=regexpr("ISSUER DESCRIPTION", text2$PDF_STRING)) %>%
     mutate(STATUS_start=regexpr("STATUS", text2$PDF_STRING)) %>%
-    replace_with_na_all(condition=~.x==-1) %>%
+    na_if(-1) %>%
     filter(!str_detect(PDF_STRING, "Run Date")) %>%
     filter(!str_detect(PDF_STRING, "Run Time")) %>%
     filter(!str_detect(PDF_STRING, "Total C")) %>%
