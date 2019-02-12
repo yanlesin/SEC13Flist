@@ -23,6 +23,19 @@ You can install current development version from
 devtools::install_github("yanlesin/SEC13Flist")
 ```
 
+## Description of returned data
+
+CUSIP: chr - CUSIP number of the security  
+HAS\_LISTED\_OPTIONS: chr - An asterisk idicates that security having a
+listed option and each option is individually listed with its own CUSIP
+number immediately below the name of the security having the option  
+ISSUER\_NAME: chr - Issuer Name  
+ISSUER\_DESCRIPTION: chr - Issuer Description  
+STATUS: chr - “ADDED” (The security has become a Section 13(f) security)
+or “DELETED” (The security ceases to be a 13(f) security since the date
+of the last list) YEAR: int - Year of the list  
+QUARTER: int - Quarter of the list
+
 ## Example
 
 These are basic examples of usage:
@@ -36,11 +49,11 @@ SEC13Flist_current <- SEC_13F_list() #Current list form SEC website
 
 ## Customizing
 SEC13Flist_current <- SEC_13F_list() %>% 
-  filter(STATUS!="DELETED") %>% #Filter records with STATUS "DELETED"
+  filter(STATUS!="DELETED") %>% #Filter out records with STATUS "DELETED"
   select(-YEAR,-QUARTER) #Remove YEAR and QUARTER columns
 ```
 
-# Use of CUSIP Codes
+## Use of CUSIP Codes
 
 According to FAQ section of [CUSIP Global
 Services](https://www.cusip.com/cusip/cgs-license-fees.htm):
