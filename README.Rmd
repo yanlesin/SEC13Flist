@@ -12,6 +12,8 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
+[![Build Status](https://travis-ci.org/yanlesin/SEC13Flist.svg?branch=master)](https://travis-ci.org/yanlesin/SEC13Flist)
+
 # SEC13Flist
 
 The goal of SEC13Flist is to provide routine to work with official list of Section 13F Securities.

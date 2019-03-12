@@ -1,6 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+[![Build
+Status](https://travis-ci.org/yanlesin/SEC13Flist.svg?branch=master)](https://travis-ci.org/yanlesin/SEC13Flist)
+
 # SEC13Flist
 
 The goal of SEC13Flist is to provide routine to work with official list
