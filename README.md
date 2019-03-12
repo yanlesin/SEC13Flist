@@ -33,7 +33,8 @@ ISSUER\_NAME: chr - Issuer Name
 ISSUER\_DESCRIPTION: chr - Issuer Description  
 STATUS: chr - “ADDED” (The security has become a Section 13(f) security)
 or “DELETED” (The security ceases to be a 13(f) security since the date
-of the last list) YEAR: int - Year of the list  
+of the last list)  
+YEAR: int - Year of the list  
 QUARTER: int - Quarter of the list
 
 ## Example

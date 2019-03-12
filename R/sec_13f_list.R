@@ -64,17 +64,15 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
   if (YEAR_==2004&QUARTER_==1)
   {
     file_name <- "13f-list.pdf"
-    download_result <- download.file(paste0("https://www.sec.gov/divisions/investment/",file_name),file_name,mode='wb')
+    url_file <- paste0("https://www.sec.gov/divisions/investment/",file_name)
   }
   else
   {
     file_name <- paste0('13flist',YEAR_, 'q', QUARTER_,'.pdf')
-    download_result <- download.file(paste0("https://www.sec.gov/divisions/investment/13f/",file_name),file_name,mode='wb')
+    url_file <- paste0("https://www.sec.gov/divisions/investment/13f/",file_name)
   }
 
-  if (download_result!=0) stop("Error: download.file returned non-zero code")
-
-  text <- pdf_text(file_name)
+  text <- pdf_text(url_file)
   pages <- length(text)
 
   CR <- str_locate(text[1],"\r")[1]
@@ -93,8 +91,6 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
       stop("Undefined line separator")
     }
   }
-
-
 
   text2 <- map(text,str_split_wrap)
   text2 <- text2[3:pages] %>%
@@ -120,8 +116,6 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
     mutate(ISSUER_DESCRIPTION_end=STATUS_start-1) %>%
     mutate(STATUS_end=str_length(PDF_STRING)) %>%
     mutate(STATUS_end=max(STATUS_end))
-
-
 
   List_13F <- text2 %>%
     mutate(CUSIP=substring(PDF_STRING,CUSIP_start,CUSIP_end)) %>%
