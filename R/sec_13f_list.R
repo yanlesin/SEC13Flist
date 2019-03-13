@@ -1,10 +1,3 @@
-library(pdftools)
-library(stringr)
-library(dplyr)
-library(purrr)
-library(tidyr)
-library(rvest)
-
 #' @title Official List of Section 13(f) Securities
 #'
 #' @description This function downloads, specified by Year and Quarter, Official List of Section 13(f) Securities from SEC website, parses it and returns dataframe. If no parameters provided, function determines year and quarter based on Current List section of SEC website
@@ -13,6 +6,7 @@ library(rvest)
 #' @keywords SEC 13F List
 #' @export
 #' @examples
+#' library(SEC13Flist)
 #' SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Download and parse list for Q3 2018
 #' SEC_13F_list_current <- SEC_13F_list() #Download and parse current list from SEC.gov
 #' SEC13Flist_current <- SEC_13F_list() %>%
@@ -22,21 +16,21 @@ library(rvest)
 SEC_13F_list <- function(YEAR_,QUARTER_){
 
   str_split_wrap <- function(text){
-    str_split(text,line_separator, simplify = FALSE)
+    stringr::str_split(text,line_separator, simplify = FALSE)
   }
 
   url_SEC <- "https://www.sec.gov/divisions/investment/13flists.htm"
 
-  current_list_url <- xml_attrs(
-    html_nodes(
-      read_html(url_SEC),'#block-secgov-content :nth-child(1)'
+  current_list_url <- xml2::xml_attrs(
+    rvest::html_nodes(
+      xml2::read_html(url_SEC),'#block-secgov-content :nth-child(1)'
     )[[23]]
   )
 
-  current_year <- str_sub(current_list_url,str_length(current_list_url)-9,str_length(current_list_url)-6) %>%
+  current_year <- stringr::str_sub(current_list_url,stringr::str_length(current_list_url)-9,stringr::str_length(current_list_url)-6) %>%
     as.integer()
 
-  current_quarter <- str_sub(current_list_url,str_length(current_list_url)-4,str_length(current_list_url)-4) %>%
+  current_quarter <- stringr::str_sub(current_list_url,stringr::str_length(current_list_url)-4,stringr::str_length(current_list_url)-4) %>%
     as.integer()
 
   if (missing(YEAR_)) {
@@ -72,7 +66,7 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
     url_file <- paste0("https://www.sec.gov/divisions/investment/13f/",file_name)
   }
 
-  text <- pdf_text(url_file)
+  text <- pdftools::pdf_text(url_file)
   pages <- length(text)
 
   CR <- str_locate(text[1],"\r")[1]
@@ -92,7 +86,7 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
     }
   }
 
-  text2 <- map(text,str_split_wrap)
+  text2 <- purrr::map(text,str_split_wrap)
   text2 <- text2[3:pages] %>%
     unlist()
   text2 <- as.data.frame(text2,stringsAsFactors=FALSE) %>%
