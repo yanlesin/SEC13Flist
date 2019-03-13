@@ -19,8 +19,8 @@ library(SEC13Flist)
 SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Download and parse list for Q3 2018
 SEC_13F_list_current <- SEC_13F_list() #Download and parse current list from SEC.gov
 SEC13Flist_current <- SEC_13F_list() \%>\%
-  filter(STATUS!="DELETED") \%>\% #Filter records with STATUS "DELETED"
-  select(-YEAR,-QUARTER) #Remove YEAR and QUARTER columns
+  dplyr::filter(STATUS!="DELETED") \%>\% #Filter records with STATUS "DELETED"
+  dplyr::select(-YEAR,-QUARTER) #Remove YEAR and QUARTER columns
 }
 \keyword{13F}
 \keyword{List}
