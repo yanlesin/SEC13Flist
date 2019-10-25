@@ -2,3 +2,4 @@
 ^LICENSE\.md$
 ^SEC13Flist\.Rproj$
 ^\.Rproj\.user$
+.travis.yml
