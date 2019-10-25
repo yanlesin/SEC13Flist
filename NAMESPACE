@@ -2,4 +2,7 @@
 
 export("%>%")
 export(SEC_13F_list)
+export(isCusip)
+importFrom(Rcpp,sourceCpp)
 importFrom(magrittr,"%>%")
+useDynLib(SEC13Flist, .registration = TRUE)
