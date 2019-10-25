@@ -10,7 +10,12 @@ isCusip(s)
 \item{s}{nine-character string with CUSIP code to validate}
 }
 \description{
-This function check validity of CUSIP code by comparing calculated check digit based on first 8 characters of CUSIP code with 9th character of CUSIP code - control digit
+This function check validity of CUSIP code by comparing calculated control digit based on first 8 characters of CUSIP code with 9th character of CUSIP code - control digit
+}
+\examples{
+library(SEC13Flist)
+isCusip("B38564109") #invalid CUSIP example
+isCusip("B38564108") #valid CUSIP example
 }
 \keyword{CUSIP}
 \keyword{Control}

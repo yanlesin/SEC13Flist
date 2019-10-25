@@ -3,9 +3,13 @@ using namespace Rcpp;
 
 //' @title Check validity of CUSIP code
 //'
-//' @description This function check validity of CUSIP code by comparing calculated check digit based on first 8 characters of CUSIP code with 9th character of CUSIP code - control digit
+//' @description This function check validity of CUSIP code by comparing calculated control digit based on first 8 characters of CUSIP code with 9th character of CUSIP code - control digit
 //' @param s nine-character string with CUSIP code to validate
 //' @keywords CUSIP Control Digit
+//' @examples
+//' library(SEC13Flist)
+//' isCusip("B38564109") #invalid CUSIP example
+//' isCusip("B38564108") #valid CUSIP example
 //' @export
 // [[Rcpp::export]]
 bool isCusip(const std::string& s) {
