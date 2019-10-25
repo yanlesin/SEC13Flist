@@ -1,18 +1,20 @@
 #' @title Official List of Section 13(f) Securities
 #'
 #' @description This function downloads, specified by Year and Quarter, Official List of Section 13(f) Securities from SEC website, parses it and returns dataframe. If no parameters provided, function determines year and quarter based on Current List section of SEC website
-#' @param YEAR_ Year for the SEC List
-#' @param QUARTER_ Quarter for the SEC List
+#' @param YEAR_ Numeric, Year for the SEC List
+#' @param QUARTER_ Numeric, Quarter for the SEC List
+#' @param show_progress Logical, Show progress during list parsing, default value show_progress = FALSE
 #' @keywords SEC 13F List
 #' @export
 #' @examples
 #' library(SEC13Flist)
-#' SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Download and parse list for Q3 2018
+#' SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Parse list for Q3 2018 without progress indicator
+#' SEC_13F_list_2018_Q3_ <- SEC_13F_list(2018,3,TRUE) #Parse list with progress indicator
 #' SEC_13F_list_current <- SEC_13F_list() #Download and parse current list from SEC.gov
 #' @useDynLib SEC13Flist, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 
-SEC_13F_list <- function(YEAR_,QUARTER_){
+SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
 
   str_split_wrap <- function(text){
     stringr::str_split(text,line_separator, simplify = FALSE)
@@ -85,7 +87,7 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
     }
   }
 
-  text2 <- purrr::map(text,str_split_wrap)
+  text2 <- if(show_progress) purrr::map(.x = text,.f = purrrogress::with_progress(fun=str_split_wrap, type="txt")) else purrr::map(.x = text, .f = str_split_wrap)
   text2 <- text2[3:pages] %>%
     unlist()
   text2 <- as.data.frame(text2,stringsAsFactors=FALSE) %>%
