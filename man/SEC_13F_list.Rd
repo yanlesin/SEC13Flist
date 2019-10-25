@@ -18,9 +18,9 @@ This function downloads, specified by Year and Quarter, Official List of Section
 }
 \examples{
 library(SEC13Flist)
-SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Download and parse list for Q3 2018 without progress indicator
-SEC_13F_list_2018_Q3_ <- SEC_13F_list(2018,3, show_progress = TRUE) #Download and parse list for Q3 2018 with progress indicator
-SEC_13F_list_current <- SEC_13F_list() #Download and parse current list from SEC.gov
+SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Parse list for Q3 2018 without progress indicator
+SEC_13F_list_2018_Q3_ <- SEC_13F_list(2018,3,TRUE) #Parse list with progress indicator
+SEC_13F_list_current <- SEC_13F_list() #Parse current list from SEC.gov
 }
 \keyword{13F}
 \keyword{List}
