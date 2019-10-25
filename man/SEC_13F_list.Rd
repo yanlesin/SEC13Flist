@@ -4,19 +4,22 @@
 \alias{SEC_13F_list}
 \title{Official List of Section 13(f) Securities}
 \usage{
-SEC_13F_list(YEAR_, QUARTER_)
+SEC_13F_list(YEAR_, QUARTER_, show_progress = FALSE)
 }
 \arguments{
-\item{YEAR_}{Year for the SEC List}
+\item{YEAR_}{Numeric, Year for the SEC List}
 
-\item{QUARTER_}{Quarter for the SEC List}
+\item{QUARTER_}{Numeric, Quarter for the SEC List}
+
+\item{show_progress}{Logical, Show progress during list parsing, default value show_progress = FALSE}
 }
 \description{
 This function downloads, specified by Year and Quarter, Official List of Section 13(f) Securities from SEC website, parses it and returns dataframe. If no parameters provided, function determines year and quarter based on Current List section of SEC website
 }
 \examples{
 library(SEC13Flist)
-SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Download and parse list for Q3 2018
+SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Download and parse list for Q3 2018 without progress indicator
+SEC_13F_list_2018_Q3_ <- SEC_13F_list(2018,3, show_progress = TRUE) #Download and parse list for Q3 2018 with progress indicator
 SEC_13F_list_current <- SEC_13F_list() #Download and parse current list from SEC.gov
 }
 \keyword{13F}

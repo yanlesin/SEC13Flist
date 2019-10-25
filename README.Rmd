@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 The goal of SEC13Flist is to provide routine to work with official list of Section 13F Securities.
 
-Function SEC_13F_list downloads PDF list from [SEC.gov](https://www.sec.gov/divisions/investment/13flists.htm) based on supplied year and quarter and returns data frame with list of securities from PDF file, mainitaining the same structure as official list. Function appends YEAR and QUARTER columns to each record. Returned dataframe/tibble could be customized and filtered according to your needs.
+Function `SEC_13F_list` downloads PDF list from [SEC.gov](https://www.sec.gov/divisions/investment/13flists.htm) based on supplied year and quarter and returns data frame with list of securities from PDF file, mainitaining the same structure as official list. Function appends YEAR and QUARTER columns to each record. Returned dataframe could be customized and filtered according to your needs.
 
 ## Installation
 
@@ -46,6 +46,9 @@ These are basic examples of usage:
 ```{r example, eval=FALSE, include=TRUE}
 ## Return list for Q3 2018
 SEC13Flist_2018_Q3 <- SEC_13F_list(2018,3)
+
+## Return list for Q3 2018 with parsing progress indicator
+SEC13Flist_2018_Q3 <- SEC_13F_list(2018,3,TRUE)
 
 ## Current list form SEC website
 SEC13Flist_current <- SEC_13F_list() #Current list form SEC website
