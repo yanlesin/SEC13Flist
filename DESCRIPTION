@@ -1,6 +1,6 @@
 Package: SEC13Flist
 Title: Routines to work with Official List of SEC Section 13(f) Securities for given Year and Quarter
-Version: 0.1.4
+Version: 0.1.5
 Authors@R: 
     person(given = "Yan",
            family = "Lyesin",
@@ -17,7 +17,8 @@ Imports:
     xml2,
     Rcpp,
     magrittr,
-    purrrogress
+    purrrogress,
+    rlang
 License: CC0
 Encoding: UTF-8
 LazyData: true

@@ -13,6 +13,7 @@
 #' SEC_13F_list_current <- SEC_13F_list() #Parse current list from SEC.gov
 #' @useDynLib SEC13Flist, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
+#' @importFrom rlang ':='
 
 SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
 
@@ -87,50 +88,69 @@ SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
     }
   }
 
+  PDF_STRING <- "PDF_STRING"
+
   text2 <- if(show_progress) purrr::map(.x = text,.f = purrrogress::with_progress(fun=str_split_wrap, type="txt")) else purrr::map(.x = text, .f = str_split_wrap)
   text2 <- text2[3:pages] %>%
     unlist()
   text2 <- as.data.frame(text2,stringsAsFactors=FALSE) %>%
-    dplyr::rename(PDF_STRING=text2)
+    dplyr::rename(!!PDF_STRING:=text2)
+
+  CUSIP_start <- "CUSIP_start"
+  ISSUER_NAME_start <- "ISSUER_NAME_start"
+  ISSUER_DESCRIPTION_start <- "ISSUER_DESCRIPTION_start"
+  STATUS_start <- "STATUS_start"
+  CUSIP_end <- "CUSIP_end"
+  HAS_LISTED_OPTION_start <- "HAS_LISTED_OPTION_start"
+  HAS_LISTED_OPTION_end <- "HAS_LISTED_OPTION_end"
+  ISSUER_NAME_end <- "ISSUER_NAME_end"
+  ISSUER_DESCRIPTION_end <- "ISSUER_DESCRIPTION_end"
+  STATUS_end <- "STATUS_end"
 
   text2 <- text2 %>%
-    dplyr::mutate(CUSIP_start=regexpr("CUSIP", text2$PDF_STRING),
-                  ISSUER_NAME_start=regexpr("ISSUER NAME", text2$PDF_STRING),
-                  ISSUER_DESCRIPTION_start=regexpr("ISSUER DESCRIPTION", text2$PDF_STRING),
-                  STATUS_start=regexpr("STATUS", text2$PDF_STRING)) %>%
+    dplyr::mutate(!!CUSIP_start:=regexpr("CUSIP", text2$PDF_STRING),
+                  !!ISSUER_NAME_start:=regexpr("ISSUER NAME", text2$PDF_STRING),
+                  !!ISSUER_DESCRIPTION_start:=regexpr("ISSUER DESCRIPTION", text2$PDF_STRING),
+                  !!STATUS_start:=regexpr("STATUS", text2$PDF_STRING)) %>%
     dplyr::na_if(-1) %>%
     dplyr::filter(!stringr::str_detect(PDF_STRING, "Run Date")) %>%
     dplyr::filter(!stringr::str_detect(PDF_STRING, "Run Time")) %>%
     dplyr::filter(!stringr::str_detect(PDF_STRING, "Total C")) %>%
     dplyr::filter(stringr::str_detect(PDF_STRING, "")) %>%
     tidyr::fill(CUSIP_start, ISSUER_NAME_start, ISSUER_DESCRIPTION_start, STATUS_start, .direction = "down") %>%
-    dplyr::mutate(CUSIP_end=CUSIP_start+11-1,
-                  HAS_LISTED_OPTION_start=CUSIP_end+1,
-                  HAS_LISTED_OPTION_end=ISSUER_NAME_start-1,
-                  ISSUER_NAME_end=ISSUER_DESCRIPTION_start-1,
-                  ISSUER_DESCRIPTION_end=STATUS_start-1,
-                  STATUS_end=stringr::str_length(PDF_STRING),
+    dplyr::mutate(!!CUSIP_end:=CUSIP_start+11-1,
+                  !!HAS_LISTED_OPTION_start:=CUSIP_end+1,
+                  !!HAS_LISTED_OPTION_end:=ISSUER_NAME_start-1,
+                  !!ISSUER_NAME_end:=ISSUER_DESCRIPTION_start-1,
+                  !!ISSUER_DESCRIPTION_end:=STATUS_start-1,
+                  !!STATUS_end:=stringr::str_length(PDF_STRING),
                   STATUS_end=max(STATUS_end))
 
+  CUSIP <- "CUSIP"
+  HAS_LISTED_OPTION <- "HAS_LISTED_OPTION"
+  ISSUER_NAME <- "ISSUER_NAME"
+  ISSUER_DESCRIPTION <- "ISSUER_DESCRIPTION"
+  STATUS <- "STATUS"
+  CUSIP <- "CUSIP"
 
   List_13F <- text2 %>%
     dplyr::mutate(
-      CUSIP = substring(PDF_STRING, CUSIP_start, CUSIP_end),
-      HAS_LISTED_OPTION = stringr::str_trim(
+      !!CUSIP := substring(PDF_STRING, CUSIP_start, CUSIP_end),
+      !!HAS_LISTED_OPTION := stringr::str_trim(
         substring(PDF_STRING, HAS_LISTED_OPTION_start, HAS_LISTED_OPTION_end),
         side = "both"
       ),
-      ISSUER_NAME = stringr::str_trim(
+      !!ISSUER_NAME := stringr::str_trim(
         substring(PDF_STRING, ISSUER_NAME_start, ISSUER_NAME_end),
         side = "both"
       ),
-      ISSUER_DESCRIPTION = stringr::str_trim(
+      !!ISSUER_DESCRIPTION := stringr::str_trim(
         substring(PDF_STRING, ISSUER_DESCRIPTION_start, ISSUER_DESCRIPTION_end),
         side = "both"
       ),
-      STATUS = stringr::str_trim(substr(PDF_STRING, STATUS_start, STATUS_end), side =
+      !!STATUS := stringr::str_trim(substr(PDF_STRING, STATUS_start, STATUS_end), side =
                           "both"),
-      CUSIP = stringr::str_replace_all(CUSIP, " ", "")
+      !!CUSIP := stringr::str_replace_all(CUSIP, " ", "")
     ) %>%
     dplyr::filter(!stringr::str_detect(CUSIP, "CUSIP")) %>%
     dplyr::select(-1:-11) %>%
