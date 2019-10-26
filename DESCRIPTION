@@ -6,7 +6,7 @@ Authors@R:
            family = "Lyesin",
            role = c("aut", "cre"),
            email = "yan.lyesin@gmail.com")
-Description: This package provide function to extract official SEC 13F list of securities and validate CUSIP numbers provided at this list.
+Description: This package provide function to extract official SEC 13F list of securities and validate CUSIP numbers provided in this list.
 Imports: 
     pdftools,
     stringr,
