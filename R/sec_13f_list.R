@@ -57,6 +57,9 @@ SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
   if (YEAR_>current_year) stop (paste0("Error: no list available for year ",
                                        YEAR_, ". Please, use integer number in range 2004..", current_year))
 
+  if (YEAR_==current_year&QUARTER_>current_quarter) stop (paste0("Error: no list available for year ",
+                                       YEAR_, " and quarter ", QUARTER_, ". Last available quarter for current year - ", current_quarter, "."))
+
   if (YEAR_==2004&QUARTER_==1)
   {
     file_name <- "13f-list.pdf"
