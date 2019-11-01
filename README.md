@@ -20,6 +20,10 @@ Function `isCusip` verifies checksum digit (9th digit) for CUSIP code
 based on first eight characters of CUSIP. Function returns
 `TRUE`/`FALSE` for correct/incorrect CUSIP code.
 
+CUSIP checksum calculation pseudo code located at
+[Wikipedia](https://en.wikipedia.org/wiki/CUSIP) and C++ implementation
+is at [Rosettacode](https://rosettacode.org/wiki/CUSIP#C.2B.2B).
+
 ## Installation
 
 You can install current development version from

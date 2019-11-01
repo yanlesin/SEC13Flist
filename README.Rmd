@@ -20,7 +20,9 @@ The goal of SEC13Flist package is to provide routines to work with official list
 
 Function `SEC_13F_list` parses PDF list from [SEC.gov](https://www.sec.gov/divisions/investment/13flists.htm) based on supplied year and quarter and returns data frame with list of securities, maintaining the same structure as official list. Function appends YEAR and QUARTER columns to the list. Returned dataframe could be customized and filtered according to your needs.
 
-Function `isCusip` verifies checksum digit (9th digit) for CUSIP code based on first eight characters of CUSIP. Function returns `TRUE`/`FALSE` for correct/incorrect CUSIP code.
+Function `isCusip` verifies checksum digit (9th digit) for CUSIP code based on first eight characters of CUSIP. Function returns `TRUE`/`FALSE` for correct/incorrect CUSIP code. 
+
+CUSIP checksum calculation pseudo code located at [Wikipedia](https://en.wikipedia.org/wiki/CUSIP) and C++ implementation is at [Rosettacode](https://rosettacode.org/wiki/CUSIP#C.2B.2B).
 
 ## Installation
 
