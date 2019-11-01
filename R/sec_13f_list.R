@@ -76,6 +76,7 @@ SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
 
   CR <- stringr::str_locate(text[1],"\r")[1]
   LF <- stringr::str_locate(text[1],"\n")[1]
+  table_start <- which(!is.na(stringr::str_locate(text,"Run Date:")[,1]))[1]
 
   if (!is.na(CR)) {
     if (stringr::str_sub(text[1], CR + 1, CR + 1) == "\n") {
@@ -94,7 +95,7 @@ SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
   PDF_STRING <- "PDF_STRING"
 
   text2 <- if(show_progress) purrr::map(.x = text,.f = purrrogress::with_progress(fun=str_split_wrap, type="txt")) else purrr::map(.x = text, .f = str_split_wrap)
-  text2 <- text2[3:pages] %>%
+  text2 <- text2[table_start:pages] %>%
     unlist()
   text2 <- as.data.frame(text2,stringsAsFactors=FALSE) %>%
     dplyr::rename(!!PDF_STRING:=text2)
