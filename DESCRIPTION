@@ -1,12 +1,12 @@
 Package: SEC13Flist
 Title: Routines to work with Official List of SEC Section 13(f) Securities for given Year and Quarter
-Version: 0.1.8
+Version: 0.1.9
 Authors@R: 
     person(given = "Yan",
            family = "Lyesin",
            role = c("aut", "cre"),
            email = "yan.lyesin@gmail.com")
-Description: This package provide function to extract official SEC 13F list of securities and validate CUSIP numbers provided in this list.
+Description: This package provide functions to extract official SEC 13F list of securities and validate CUSIP numbers provided in this list.
 Imports: 
     pdftools,
     stringr,
