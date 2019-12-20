@@ -3,6 +3,7 @@
 
 [![Build
 Status](https://travis-ci.org/yanlesin/SEC13Flist.svg?branch=master)](https://travis-ci.org/yanlesin/SEC13Flist)
+[![codecov](https://codecov.io/github/yanlesin/SEC13Flist/branch/adding_codecov_io/graphs/badge.svg)](https://codecov.io/gh/yanlesin/SEC13Flist/branch/adding_codecov_io)
 
 # SEC13Flist
 
