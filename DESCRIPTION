@@ -1,6 +1,6 @@
 Package: SEC13Flist
 Title: Routines to work with Official List of SEC Section 13(f) Securities for given Year and Quarter
-Version: 0.1.9
+Version: 0.2.0
 Authors@R: 
     person(given = "Yan",
            family = "Lyesin",
@@ -27,3 +27,5 @@ URL: https://github.com/yanlesin/SEC13Flist
 BugReports: https://github.com/yanlesin/SEC13Flist/issues
 LinkingTo: 
     Rcpp
+Suggests: 
+    testthat (>= 2.1.0)
