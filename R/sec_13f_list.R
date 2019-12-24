@@ -86,19 +86,7 @@ SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
   LF <- stringr::str_locate(text[1],"\n")[1]
   table_start <- which(!is.na(stringr::str_locate(text,"Run Date:")[,1]))[1]
 
-  if (!is.na(CR)) {
-    if (stringr::str_sub(text[1], CR + 1, CR + 1) == "\n") {
-      line_separator <-"\r\n"
-    } else {
-      line_separator <-"\r"
-    }
-  } else {
-    if (!is.na(LF)) {
-      line_separator <- "\n"
-    } else {
-      stop("Undefined line separator")
-    }
-  }
+  line_separator <- line_separator_func(CR, LF, text[1])
 
   PDF_STRING <- "PDF_STRING"
 
