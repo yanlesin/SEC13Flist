@@ -1,10 +1,3 @@
-#' @title Line separator
-#'
-#' @description internal function that determines line separator for text
-#' @param CR CR position (integer)
-#' @param LF LF position (integer)
-#' @param text character
-
 line_separator_func <- function(CR, LF, text)
 {
   if (!is.na(CR)) {
@@ -21,14 +14,6 @@ line_separator_func <- function(CR, LF, text)
     }
   }
 }
-
-#' @title File URL
-#'
-#' @description internal function that determines URL of the list
-#' @param YEAR_ year of the list
-#' @param QUARTER_ quarter of the list
-#' @param current_year current year
-#' @param current_quarter current quarter
 
 url_file_func <- function(YEAR_,
                           QUARTER_,
