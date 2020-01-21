@@ -13,7 +13,7 @@ This is a resubmission. In this version I have:
 * R-Hub "check_for_cran()" on 4 platforms devel and release
 
 ── R CMD check results ─────────────────────────────────── SEC13Flist 0.2.5 ────
-Duration: 52.1s
+Duration: 48.8s
 
 0 errors ✓ | 0 warnings ✓ | 0 notes ✓
 
