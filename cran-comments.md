@@ -1,3 +1,10 @@
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Removed possible syntax error in description
+
+* Addressed examples running longer than 10 seconds
+
 ## Test environments
 * local OS X install, R 3.6.2
 * ubuntu 16.04 (on travis-ci), R 3.6.2
