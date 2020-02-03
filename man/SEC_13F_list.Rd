@@ -18,15 +18,15 @@ A data frame that contains official list of Section 13(f) securities with the fo
 \itemize{
 \item \code{CUSIP}: character - CUSIP number of the security included in the official list
 \item \code{HAS_LISTED_OPTION}: character - An asterisk idicates that security having a listed option and each option is individually listed with its own CUSIP number immediately below the name of the security having the option
-\item \code{ISSUER_NAME}: character - Issuer Name
-\item \code{ISSUER_DESCRIPTION}: character - Issuer Description
+\item \code{ISSUER_NAME}: character - Issuer name
+\item \code{ISSUER_DESCRIPTION}: character - Issuer description
 \item \code{STATUS}: character - "ADDED" (The security has become a Section 13(f) security) or "DELETED" (The security ceases to be a 13(f) security since the date of the last list)
-\item \code{YEAR}: integer - Year of the list
-\item \code{QUARTER}: integer - Quarter of the list
+\item \code{YEAR}: integer - Year of the official list
+\item \code{QUARTER}: integer - Quarter of the official list
 }
 }
 \description{
-This function downloads, specified by Year and Quarter, Official List of Section 13(f) Securities from SEC website, parses it and returns a data frame. If no parameters provided, function determines year and quarter based on Current List section of SEC website
+This function downloads, specified by Year and Quarter (starting from year 2004, quarter 1), official list of Section 13(f) securities from SEC website <https://www.sec.gov/divisions/investment/13flists.htm>, parses it and returns a data frame. If no parameters provided, function determines year and quarter based on Current List section of SEC website <https://www.sec.gov/divisions/investment/13flists.htm>
 }
 \examples{
 \donttest{library(SEC13Flist)
