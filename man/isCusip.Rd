@@ -9,8 +9,11 @@ isCusip(s)
 \arguments{
 \item{s}{nine-character string with CUSIP code to validate}
 }
+\value{
+Logical value indicating validity of CUSIP number: \code{TRUE} if CUSIP number is valid, \code{FALSE} if CUSIP number is invalid
+}
 \description{
-This function check validity of CUSIP code by comparing calculated control digit based on first 8 characters of CUSIP code with 9th character of CUSIP code - control digit
+This function check validity of CUSIP code by comparing calculated checksum digit based on first 8 characters of CUSIP code with 9th character of CUSIP code - checksum digit
 }
 \examples{
 library(SEC13Flist)
@@ -18,5 +21,5 @@ isCusip("B38564109") #invalid CUSIP example
 isCusip("B38564108") #valid CUSIP example
 }
 \keyword{CUSIP}
-\keyword{Control}
-\keyword{Digit}
+\keyword{checksum}
+\keyword{digit}

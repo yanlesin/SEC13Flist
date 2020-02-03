@@ -13,12 +13,23 @@ SEC_13F_list(YEAR_, QUARTER_, show_progress = FALSE)
 
 \item{show_progress}{Logical, Show progress during list parsing, default value show_progress = FALSE}
 }
+\value{
+A data frame that contains official list of Section 13(f) securities with the following columns:
+\itemize{
+\item \code{CUSIP}: character - CUSIP number of the security included in the official list
+\item \code{HAS_LISTED_OPTION}: character - An asterisk idicates that security having a listed option and each option is individually listed with its own CUSIP number immediately below the name of the security having the option
+\item \code{ISSUER_NAME}: character - Issuer Name
+\item \code{ISSUER_DESCRIPTION}: character - Issuer Description
+\item \code{STATUS}: character - "ADDED" (The security has become a Section 13(f) security) or "DELETED" (The security ceases to be a 13(f) security since the date of the last list)
+\item \code{YEAR}: integer - Year of the list
+\item \code{QUARTER}: integer - Quarter of the list
+}
+}
 \description{
-This function downloads, specified by Year and Quarter, Official List of Section 13(f) Securities from SEC website, parses it and returns dataframe. If no parameters provided, function determines year and quarter based on Current List section of SEC website
+This function downloads, specified by Year and Quarter, Official List of Section 13(f) Securities from SEC website, parses it and returns a data frame. If no parameters provided, function determines year and quarter based on Current List section of SEC website
 }
 \examples{
-\dontrun{
-library(SEC13Flist)
+\donttest{library(SEC13Flist)
 SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Parse list for Q3 2018 without progress indicator
 SEC_13F_list_2018_Q3_ <- SEC_13F_list(2018,3,TRUE) #Parse list with progress indicator
 SEC_13F_list_current <- SEC_13F_list() #Parse current list from SEC.gov

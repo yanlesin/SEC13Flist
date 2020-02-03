@@ -3,9 +3,10 @@
 
 #' @title Check validity of CUSIP code
 #'
-#' @description This function check validity of CUSIP code by comparing calculated control digit based on first 8 characters of CUSIP code with 9th character of CUSIP code - control digit
+#' @description This function check validity of CUSIP code by comparing calculated checksum digit based on first 8 characters of CUSIP code with 9th character of CUSIP code - checksum digit
 #' @param s nine-character string with CUSIP code to validate
-#' @keywords CUSIP Control Digit
+#' @keywords CUSIP checksum digit
+#' @return Logical value indicating validity of CUSIP number: \code{TRUE} if CUSIP number is valid, \code{FALSE} if CUSIP number is invalid
 #' @examples
 #' library(SEC13Flist)
 #' isCusip("B38564109") #invalid CUSIP example
