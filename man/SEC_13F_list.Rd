@@ -11,13 +11,13 @@ SEC_13F_list(YEAR_, QUARTER_, show_progress = FALSE)
 
 \item{QUARTER_}{Numeric, Quarter for the SEC List}
 
-\item{show_progress}{Logical, Show progress during list parsing, default value show_progress = FALSE}
+\item{show_progress}{Logical, Option is not active in this build! Show progress during list parsing, default value show_progress = FALSE}
 }
 \value{
 A data frame that contains official list of Section 13(f) securities with the following columns:
 \itemize{
 \item \code{CUSIP}: character - CUSIP number of the security included in the official list
-\item \code{HAS_LISTED_OPTION}: character - An asterisk idicates that security having a listed option and each option is individually listed with its own CUSIP number immediately below the name of the security having the option
+\item \code{HAS_LISTED_OPTION}: character - An asterisk indicates that security having a listed option and each option is individually listed with its own CUSIP number immediately below the name of the security having the option
 \item \code{ISSUER_NAME}: character - Issuer name
 \item \code{ISSUER_DESCRIPTION}: character - Issuer description
 \item \code{STATUS}: character - "ADDED" (The security has become a Section 13(f) security) or "DELETED" (The security ceases to be a 13(f) security since the date of the last list)

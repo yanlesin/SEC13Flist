@@ -3,11 +3,12 @@
 #' @description This function downloads, specified by Year and Quarter (starting from year 2004, quarter 1), official list of Section 13(f) securities from SEC website <https://www.sec.gov/divisions/investment/13flists.htm>, parses it and returns a data frame. If no parameters provided, function determines year and quarter based on Current List section of SEC website <https://www.sec.gov/divisions/investment/13flists.htm>
 #' @param YEAR_ Numeric, Year for the SEC List
 #' @param QUARTER_ Numeric, Quarter for the SEC List
+#' @param show_progress Logical, Option is not active in this build! Show progress during list parsing, default value show_progress = FALSE
 #' @keywords SEC 13F List
 #' @return A data frame that contains official list of Section 13(f) securities with the following columns:
 #' \itemize{
 #' \item \code{CUSIP}: character - CUSIP number of the security included in the official list
-#' \item \code{HAS_LISTED_OPTION}: character - An asterisk idicates that security having a listed option and each option is individually listed with its own CUSIP number immediately below the name of the security having the option
+#' \item \code{HAS_LISTED_OPTION}: character - An asterisk indicates that security having a listed option and each option is individually listed with its own CUSIP number immediately below the name of the security having the option
 #' \item \code{ISSUER_NAME}: character - Issuer name
 #' \item \code{ISSUER_DESCRIPTION}: character - Issuer description
 #' \item \code{STATUS}: character - "ADDED" (The security has become a Section 13(f) security) or "DELETED" (The security ceases to be a 13(f) security since the date of the last list)
@@ -18,13 +19,14 @@
 #' @examples
 #' \donttest{library(SEC13Flist)
 #' SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Parse list for Q3 2018 without progress indicator
+#' SEC_13F_list_2018_Q3_ <- SEC_13F_list(2018,3,TRUE) #Parse list with progress indicator
 #' SEC_13F_list_current <- SEC_13F_list() #Parse current list from SEC.gov
 #' }
 #' @useDynLib SEC13Flist, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @importFrom rlang ':='
 
-SEC_13F_list <- function(YEAR_,QUARTER_){
+SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
 
   str_split_wrap <- function(text){
     stringr::str_split(text,line_separator, simplify = FALSE)
@@ -68,7 +70,8 @@ SEC_13F_list <- function(YEAR_,QUARTER_){
 
   PDF_STRING <- "PDF_STRING"
 
-  text2 <- purrr::map(.x = text, .f = str_split_wrap)
+  text2 <- #if(show_progress) purrr::map(.x = text,.f = purrrogress::with_progress(fun=str_split_wrap, type="txt")) else
+    purrr::map(.x = text, .f = str_split_wrap)
   text2 <- text2[table_start:pages] %>%
     unlist()
   text2 <- as.data.frame(text2,stringsAsFactors=FALSE) %>%
