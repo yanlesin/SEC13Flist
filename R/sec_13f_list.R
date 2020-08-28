@@ -97,6 +97,7 @@ SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
     dplyr::filter(!stringr::str_detect(PDF_STRING, "Run Time")) %>%
     dplyr::filter(!stringr::str_detect(PDF_STRING, "Total C")) %>%
     dplyr::filter(stringr::str_detect(PDF_STRING, "")) %>%
+    dplyr::filter(!stringr::str_detect(PDF_STRING, "\f")) %>%
     tidyr::fill(CUSIP_start, ISSUER_NAME_start, ISSUER_DESCRIPTION_start, STATUS_start, .direction = "down") %>%
     dplyr::mutate(!!CUSIP_end:=CUSIP_start+11-1,
                   !!HAS_LISTED_OPTION_start:=CUSIP_end+1,
@@ -130,7 +131,15 @@ SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
       ),
       !!STATUS := stringr::str_trim(substr(PDF_STRING, STATUS_start, STATUS_end), side =
                           "both"),
-      !!CUSIP := stringr::str_replace_all(CUSIP, " ", "")
+      !!CUSIP := stringr::str_replace_all(CUSIP, " ", ""),
+      STATUS=ifelse(STATUS=="DDED"|STATUS=="ELETED",
+                    paste0(stringr::str_sub(ISSUER_DESCRIPTION,-1),STATUS),
+                    STATUS),
+      ISSUER_DESCRIPTION=ifelse(STATUS=="DDED"|STATUS=="ELETED",
+                                stringr::str_trim(stringr::str_sub(ISSUER_DESCRIPTION, 1, stringr::str_length(ISSUER_DESCRIPTION)-1),
+                                         side="right"),
+                                ISSUER_DESCRIPTION)
+
     ) %>%
     dplyr::filter(!stringr::str_detect(CUSIP, "CUSIP")) %>%
     dplyr::select(-1:-11) %>%
