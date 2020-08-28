@@ -59,9 +59,6 @@ library(tidyverse)
 ## Return list for Q3 2018
 SEC13Flist_2018_Q3 <- SEC_13F_list(2018,3)
 
-## Return list for Q3 2018 with parsing progress indicator
-SEC13Flist_2018_Q3 <- SEC_13F_list(2018,3,TRUE)
-
 ## Current list form SEC website
 SEC13Flist_current <- SEC_13F_list() #Current list form SEC website
 
@@ -71,7 +68,7 @@ SEC13Flist_current <- SEC_13F_list() %>%
   select(-YEAR,-QUARTER) #Remove YEAR and QUARTER columns
 
 ## Verifying CUSIP
-verify_CUSIP <- SEC_13F_list(show_progress = TRUE) %>% ## show parsing progress
+verify_CUSIP <- SEC_13F_list() %>%
   rownames_to_column() %>% 
   group_by(rowname) %>% ##CUSIPs are not unique, isCusip function requires single nine character CUSIP
   mutate(VALID_CUSIP=isCusip(CUSIP)) %>% ##validating CUSIP

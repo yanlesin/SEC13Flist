@@ -3,7 +3,6 @@
 #' @description This function downloads, specified by Year and Quarter (starting from year 2004, quarter 1), official list of Section 13(f) securities from SEC website <https://www.sec.gov/divisions/investment/13flists.htm>, parses it and returns a data frame. If no parameters provided, function determines year and quarter based on Current List section of SEC website <https://www.sec.gov/divisions/investment/13flists.htm>
 #' @param YEAR_ Numeric, Year for the SEC List
 #' @param QUARTER_ Numeric, Quarter for the SEC List
-#' @param show_progress Logical, Show progress during list parsing, default value show_progress = FALSE
 #' @keywords SEC 13F List
 #' @return A data frame that contains official list of Section 13(f) securities with the following columns:
 #' \itemize{
@@ -19,14 +18,13 @@
 #' @examples
 #' \donttest{library(SEC13Flist)
 #' SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Parse list for Q3 2018 without progress indicator
-#' SEC_13F_list_2018_Q3_ <- SEC_13F_list(2018,3,TRUE) #Parse list with progress indicator
 #' SEC_13F_list_current <- SEC_13F_list() #Parse current list from SEC.gov
 #' }
 #' @useDynLib SEC13Flist, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @importFrom rlang ':='
 
-SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
+SEC_13F_list <- function(YEAR_,QUARTER_){
 
   str_split_wrap <- function(text){
     stringr::str_split(text,line_separator, simplify = FALSE)
@@ -70,7 +68,7 @@ SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
 
   PDF_STRING <- "PDF_STRING"
 
-  text2 <- if(show_progress) purrr::map(.x = text,.f = purrrogress::with_progress(fun=str_split_wrap, type="txt")) else purrr::map(.x = text, .f = str_split_wrap)
+  text2 <- purrr::map(.x = text, .f = str_split_wrap)
   text2 <- text2[table_start:pages] %>%
     unlist()
   text2 <- as.data.frame(text2,stringsAsFactors=FALSE) %>%
