@@ -2,7 +2,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 [![Build
-Status](https://travis-ci.org/yanlesin/SEC13Flist.svg?branch=master)](https://travis-ci.org/yanlesin/SEC13Flist)
+Status](https://travis-ci.com/yanlesin/SEC13Flist.svg?branch=master)](https://travis-ci.com/yanlesin/SEC13Flist)
 [![codecov](https://codecov.io/github/yanlesin/SEC13Flist/branch/master/graphs/badge.svg)](https://codecov.io/gh/yanlesin/SEC13Flist/branch/master)
 
 # SEC13Flist
@@ -69,11 +69,8 @@ SEC13Flist_current <- SEC_13F_list() %>%
 
 ## Verifying CUSIP
 verify_CUSIP <- SEC_13F_list() %>%
-  rownames_to_column() %>% 
-  group_by(rowname) %>% ##CUSIPs are not unique, isCusip function requires single nine character CUSIP
-  mutate(VALID_CUSIP=isCusip(CUSIP)) %>% ##validating CUSIP
-  ungroup() %>% 
-  select(-rowname)
+  rowwise() %>% ##CUSIPs are not unique, isCusip function is not vectorized and requires single nine character CUSIP as input
+  mutate(VALID_CUSIP=isCusip(CUSIP)) ##validating CUSIP
 ```
 
 ## Use of CUSIP Codes
