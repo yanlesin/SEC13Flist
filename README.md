@@ -4,8 +4,8 @@
 
 [![Build
 Status](https://travis-ci.org/yanlesin/SEC13Flist.svg?branch=master)](https://travis-ci.org/yanlesin/SEC13Flist)
-[![codecov](https://codecov.io/github/yanlesin/SEC13Flist/branch/master/graphs/badge.svg)](https://codecov.io/gh/yanlesin/SEC13Flist/branch/master)
-[![R build
+[![codecov](https://codecov.io/github/yanlesin/SEC13Flist/branch/master/graphs/badge.svg)](https://codecov.io/gh/yanlesin/SEC13Flist/branch/master)[![R
+build
 status](https://github.com/yanlesin/SEC13Flist/workflows/R-CMD-check/badge.svg)](https://github.com/yanlesin/SEC13Flist/actions)
 <!-- badges: end -->
 
