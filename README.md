@@ -1,9 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- badges: start -->
 
 [![Build
 Status](https://travis-ci.org/yanlesin/SEC13Flist.svg?branch=master)](https://travis-ci.org/yanlesin/SEC13Flist)
 [![codecov](https://codecov.io/github/yanlesin/SEC13Flist/branch/master/graphs/badge.svg)](https://codecov.io/gh/yanlesin/SEC13Flist/branch/master)
+[![R build
+status](https://github.com/yanlesin/SEC13Flist/workflows/R-CMD-check/badge.svg)](https://github.com/yanlesin/SEC13Flist/actions)
+<!-- badges: end -->
 
 # SEC13Flist
 
@@ -114,8 +118,8 @@ for HAS\_LISTED\_OPTION field in the list).
 
 Based on analysis of the most recent file (Q3 2019) I can confirm that:
 
-  - not only CALL and PUT options supplied with invalid CUSIP, but also
+-   not only CALL and PUT options supplied with invalid CUSIP, but also
     some main issues as well
 
-  - some CUSIP codes are used more than once (up to eight securities
+-   some CUSIP codes are used more than once (up to eight securities
     with the same CUSIP in the list)
