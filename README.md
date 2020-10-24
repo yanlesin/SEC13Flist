@@ -111,8 +111,8 @@ for HAS\_LISTED\_OPTION field in the list).
 
 Based on analysis of the most recent file (Q3 2019) I can confirm that:
 
-  - not only CALL and PUT options supplied with invalid CUSIP, but also
+-   not only CALL and PUT options supplied with invalid CUSIP, but also
     some main issues as well
 
-  - some CUSIP codes are used more than once (up to eight securities
+-   some CUSIP codes are used more than once (up to eight securities
     with the same CUSIP in the list)
