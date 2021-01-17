@@ -60,6 +60,7 @@ SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
   url_file <- url_file_func(YEAR_,QUARTER_,current_year,current_quarter)
 
   text <- pdftools::pdf_text(url_file)
+
   pages <- length(text)
 
   CR <- stringr::str_locate(text[1],"\r")[1]
@@ -70,12 +71,12 @@ SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
 
   PDF_STRING <- "PDF_STRING"
 
-  text2 <- #if(show_progress) purrr::map(.x = text,.f = purrrogress::with_progress(fun=str_split_wrap, type="txt")) else
-    purrr::map(.x = text, .f = str_split_wrap)
-  text2 <- text2[table_start:pages] %>%
-    unlist()
-  text2 <- as.data.frame(text2,stringsAsFactors=FALSE) %>%
-    dplyr::rename(!!PDF_STRING:=text2)
+  text2 <- readr::read_lines(text)
+  table_start_2 <- which(!is.na(stringr::str_locate(text2,"Run Date:")[,1]))[1]
+  pages_2 <- length(text2)
+  text2 <- text2[table_start_2:pages_2] %>%
+    as.data.frame(stringsAsFactors=FALSE)
+  names(text2) <- PDF_STRING
 
   CUSIP_start <- "CUSIP_start"
   ISSUER_NAME_start <- "ISSUER_NAME_start"
