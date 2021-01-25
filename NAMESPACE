@@ -2,6 +2,7 @@
 
 export("%>%")
 export(SEC_13F_list)
+export(SEC_13F_list_local)
 export(fullCusip)
 export(isCusip)
 importFrom(Rcpp,sourceCpp)
