@@ -1,3 +1,12 @@
-# SEC13Flist 0.2.5
+# SEC13Flist 
+
+##0.3.1
+
+* added `SEC_13F_list_local` function that processes local file
+* added `fullCUSIP` function that appends checksum digit to 8-character CUSIP
+
+* internal changes: main processing of the file moved to function in `utils.R`
+
+##0.2.5
 
 * Added a `NEWS.md` file to track changes to the package.
