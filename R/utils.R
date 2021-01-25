@@ -103,3 +103,88 @@ url_file_func <- function(YEAR_,
   }
   return(url_file)
 }
+
+process_file_func <- function(text, YEAR_, QUARTER_){
+  pages <- length(text)
+
+  table_start <- which(!is.na(stringr::str_locate(text,"Run Date:")[,1]))[1]
+
+  PDF_STRING <- "PDF_STRING"
+
+  text2 <- readr::read_lines(text)
+  table_start_2 <- which(!is.na(stringr::str_locate(text2,"Run Date:")[,1]))[1]
+  pages_2 <- length(text2)
+  text2 <- text2[table_start_2:pages_2] %>%
+    as.data.frame(stringsAsFactors=FALSE)
+  names(text2) <- PDF_STRING
+
+  CUSIP_start <- "CUSIP_start"
+  ISSUER_NAME_start <- "ISSUER_NAME_start"
+  ISSUER_DESCRIPTION_start <- "ISSUER_DESCRIPTION_start"
+  STATUS_start <- "STATUS_start"
+  CUSIP_end <- "CUSIP_end"
+  HAS_LISTED_OPTION_start <- "HAS_LISTED_OPTION_start"
+  HAS_LISTED_OPTION_end <- "HAS_LISTED_OPTION_end"
+  ISSUER_NAME_end <- "ISSUER_NAME_end"
+  ISSUER_DESCRIPTION_end <- "ISSUER_DESCRIPTION_end"
+  STATUS_end <- "STATUS_end"
+
+  text2 <- text2 %>%
+    dplyr::mutate(!!CUSIP_start:=regexpr("CUSIP", text2$PDF_STRING),
+                  !!ISSUER_NAME_start:=regexpr("ISSUER NAME", text2$PDF_STRING),
+                  !!ISSUER_DESCRIPTION_start:=regexpr("ISSUER DESCRIPTION", text2$PDF_STRING),
+                  !!STATUS_start:=regexpr("STATUS", text2$PDF_STRING)) %>%
+    dplyr::na_if(-1) %>%
+    dplyr::filter(!stringr::str_detect(PDF_STRING, "Run Date")) %>%
+    dplyr::filter(!stringr::str_detect(PDF_STRING, "Run Time")) %>%
+    dplyr::filter(!stringr::str_detect(PDF_STRING, "Total C")) %>%
+    dplyr::filter(stringr::str_detect(PDF_STRING, "")) %>%
+    dplyr::filter(!stringr::str_detect(PDF_STRING, "\f")) %>%
+    tidyr::fill(CUSIP_start, ISSUER_NAME_start, ISSUER_DESCRIPTION_start, STATUS_start, .direction = "down") %>%
+    dplyr::mutate(!!CUSIP_end:=CUSIP_start+11-1,
+                  !!HAS_LISTED_OPTION_start:=CUSIP_end+1,
+                  !!HAS_LISTED_OPTION_end:=ISSUER_NAME_start-1,
+                  !!ISSUER_NAME_end:=ISSUER_DESCRIPTION_start-1,
+                  !!ISSUER_DESCRIPTION_end:=STATUS_start-1,
+                  !!STATUS_end:=stringr::str_length(PDF_STRING),
+                  STATUS_end=max(STATUS_end))
+
+  CUSIP <- "CUSIP"
+  HAS_LISTED_OPTION <- "HAS_LISTED_OPTION"
+  ISSUER_NAME <- "ISSUER_NAME"
+  ISSUER_DESCRIPTION <- "ISSUER_DESCRIPTION"
+  STATUS <- "STATUS"
+  CUSIP <- "CUSIP"
+
+  List_13F <- text2 %>%
+    dplyr::mutate(
+      !!CUSIP := substring(PDF_STRING, CUSIP_start, CUSIP_end),
+      !!HAS_LISTED_OPTION := stringr::str_trim(
+        substring(PDF_STRING, HAS_LISTED_OPTION_start, HAS_LISTED_OPTION_end),
+        side = "both"
+      ),
+      !!ISSUER_NAME := stringr::str_trim(
+        substring(PDF_STRING, ISSUER_NAME_start, ISSUER_NAME_end),
+        side = "both"
+      ),
+      !!ISSUER_DESCRIPTION := stringr::str_trim(
+        substring(PDF_STRING, ISSUER_DESCRIPTION_start, ISSUER_DESCRIPTION_end),
+        side = "both"
+      ),
+      !!STATUS := stringr::str_trim(substr(PDF_STRING, STATUS_start, STATUS_end), side =
+                                      "both"),
+      !!CUSIP := stringr::str_replace_all(CUSIP, " ", ""),
+      STATUS=ifelse(STATUS=="DDED"|STATUS=="ELETED",
+                    paste0(stringr::str_sub(ISSUER_DESCRIPTION,-1),STATUS),
+                    STATUS),
+      ISSUER_DESCRIPTION=ifelse(STATUS=="DDED"|STATUS=="ELETED",
+                                stringr::str_trim(stringr::str_sub(ISSUER_DESCRIPTION, 1, stringr::str_length(ISSUER_DESCRIPTION)-1),
+                                                  side="right"),
+                                ISSUER_DESCRIPTION)
+
+    ) %>%
+    dplyr::filter(!stringr::str_detect(CUSIP, "CUSIP")) %>%
+    dplyr::select(-1:-11) %>%
+    dplyr::mutate(YEAR = YEAR_, QUARTER = QUARTER_)
+  return(List_13F)
+}
