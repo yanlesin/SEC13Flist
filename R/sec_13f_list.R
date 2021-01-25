@@ -28,10 +28,6 @@
 
 SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
 
-  str_split_wrap <- function(text){
-    stringr::str_split(text,line_separator, simplify = FALSE)
-  }
-
   url_SEC <- "https://www.sec.gov/divisions/investment/13flists.htm"
 
   current_list_url <- xml2::xml_attrs(
