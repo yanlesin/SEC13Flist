@@ -3,6 +3,7 @@
 ##0.3.2
 
 * improve test coverage for `SEC_13F_list_local`
+* added test coverage for github actions
 
 ##0.3.1
 
