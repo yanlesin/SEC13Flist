@@ -3,4 +3,7 @@ test_that("Local processing yilds same result as via web-site", {
 aa <- SEC13Flist::SEC_13F_list_local("13flist2020q3.pdf")
 bb <- SEC13Flist::SEC_13F_list(2020, 03)
 expect_equal(aa,bb)
+
+expect_error(SEC13Flist::SEC_13F_list_local("13flist2020q3.pdf1"))
+
 })
