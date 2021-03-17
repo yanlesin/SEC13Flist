@@ -22,13 +22,12 @@ A data frame that contains official list of Section 13(f) securities with the fo
 }
 }
 \description{
-This function specified by Year and Quarter (starting from year 2004, quarter 1), official list of Section 13(f) securities from SEC website <https://www.sec.gov/divisions/investment/13flists.htm>, parses it and returns a data frame. If no parameters provided, function determines year and quarter based on Current List section of SEC website <https://www.sec.gov/divisions/investment/13flists.htm>
+This function parses file with official list of Section 13(f) securities downloaded from SEC website <https://www.sec.gov/divisions/investment/13flists.htm>, and returns a data frame. Year and quarter of the list determined based on name of the file.
 }
 \examples{
-\donttest{library(SEC13Flist)
-SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Parse list for Q3 2018 without progress indicator
-SEC_13F_list_2018_Q3_ <- SEC_13F_list(2018,3,TRUE) #Parse list with progress indicator
-SEC_13F_list_current <- SEC_13F_list() #Parse current list from SEC.gov
+\dontrun{library(SEC13Flist)
+SEC_13F_list_2018_Q3 <- SEC_13F_list_local("/Users/user_name/Downloads/13flist2020q4.pdf")
+#Parse list from "Downloads" folder
 }
 }
 \keyword{13F}

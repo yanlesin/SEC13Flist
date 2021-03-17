@@ -30,12 +30,12 @@ SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
 
   url_SEC <- "https://www.sec.gov/divisions/investment/13flists.htm"
 
-  current_list_url <- xml2::xml_attrs(
-    xml2::xml_child(
-      rvest::html_nodes(
-        xml2::read_html(url_SEC),'#block-secgov-content :nth-child(1)'
-      )[[23]],1
-    ))
+  current_list_url <- rvest::html_attrs(
+    rvest::html_children(
+      rvest::html_elements(
+        rvest::read_html(url_SEC),'#block-secgov-content :nth-child(1)'
+      )[[23]]
+    ))[[1]]
 
   current_year <- stringr::str_sub(current_list_url,stringr::str_length(current_list_url)-9,stringr::str_length(current_list_url)-6) %>%
     as.integer()
