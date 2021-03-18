@@ -3,6 +3,8 @@
 ##0.3.3
 
 * changes to accommodate rvest 1.0.0
+* added `usethis::use_github_action("check-standard")`
+* removed Travis CI (tbd)
 
 ##0.3.2
 
