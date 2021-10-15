@@ -1,12 +1,9 @@
 test_that("Parsed row count equal to total row count per PDF list", {
   url_SEC <- "https://www.sec.gov/divisions/investment/13flists.htm"
 
-  current_list_url <- xml2::xml_attrs(
-    xml2::xml_child(
-      rvest::html_nodes(
-        xml2::read_html(url_SEC),'#block-secgov-content :nth-child(1)'
-      )[[23]],1
-    ))
+  current_list_url <- rvest::html_attr(rvest::html_elements(
+    rvest::read_html(url_SEC),'#block-secgov-content :nth-child(1)'
+  )[[24]], "href")
 
   current_year <- stringr::str_sub(current_list_url,stringr::str_length(current_list_url)-9,stringr::str_length(current_list_url)-6) %>%
     as.integer()
@@ -43,15 +40,25 @@ test_that("Parsed row count equal to total row count per PDF list", {
                                                                                          YEAR_, " and quarter ", QUARTER_, ". Last available quarter for current year - ", current_quarter, "."))
   )
 
-  if (YEAR_==2004&QUARTER_==1)
+  if (YEAR_ == 2004 & QUARTER_ == 1)
   {
     file_name <- "13f-list.pdf"
-    url_file <- paste0("https://www.sec.gov/divisions/investment/",file_name)
+    url_file <-
+      paste0("https://www.sec.gov/divisions/investment/", file_name)
   }
   else
   {
-    file_name <- paste0('13flist',YEAR_, 'q', QUARTER_,'.pdf')
-    url_file <- paste0("https://www.sec.gov/divisions/investment/13f/",file_name)
+    if (YEAR_ >= 2021 & QUARTER_ >= 2) {
+      file_name <- paste0('13flist', YEAR_, 'q', QUARTER_, '.pdf')
+      url_file <-
+        paste0("https://www.sec.gov/files/investment/",
+               file_name)
+    } else {
+      file_name <- paste0('13flist', YEAR_, 'q', QUARTER_, '.pdf')
+      url_file <-
+        paste0("https://www.sec.gov/divisions/investment/13f/",
+               file_name)
+    }
   }
 
   text <- pdftools::pdf_text(url_file)

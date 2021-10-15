@@ -1,10 +1,15 @@
 # SEC13Flist 
 
+##0.3.4
+
+* fixed change on SEC.GOV landing page for list
+* adjusted tests to pass changed landing page
+
 ##0.3.3
 
 * changes to accommodate rvest 1.0.0
 * added `usethis::use_github_action("check-standard")`
-* removed Travis CI (tbd)
+* removed Travis CI
 
 ##0.3.2
 

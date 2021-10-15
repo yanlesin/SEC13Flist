@@ -96,10 +96,17 @@ url_file_func <- function(YEAR_,
   }
   else
   {
-    file_name <- paste0('13flist', YEAR_, 'q', QUARTER_, '.pdf')
-    url_file <-
-      paste0("https://www.sec.gov/divisions/investment/13f/",
-             file_name)
+    if (YEAR_ >= 2021 & QUARTER_ >= 2) {
+      file_name <- paste0('13flist', YEAR_, 'q', QUARTER_, '.pdf')
+      url_file <-
+        paste0("https://www.sec.gov/files/investment/",
+               file_name)
+    } else {
+      file_name <- paste0('13flist', YEAR_, 'q', QUARTER_, '.pdf')
+      url_file <-
+        paste0("https://www.sec.gov/divisions/investment/13f/",
+               file_name)
+    }
   }
   return(url_file)
 }
