@@ -1,6 +1,6 @@
 Package: SEC13Flist
 Title: Routines to Work with Official List of SEC Section 13(f) Securities and Security Identifiers
-Version: 0.3.4
+Version: 0.3.4.1
 Authors@R: 
     person(given = "Yan",
            family = "Lyesin",
@@ -11,10 +11,8 @@ Imports:
     pdftools,
     stringr,
     dplyr,
-    purrr,
     tidyr,
     rvest (>= 1.0.0),
-    xml2,
     Rcpp,
     magrittr,
     rlang,
