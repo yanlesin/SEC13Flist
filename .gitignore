@@ -2,3 +2,6 @@
 .RData
 .Rproj.user
 .DS_Store
+SEC13Flist.Rcheck/
+SEC13Flist*.tar.gz
+SEC13Flist*.tgz

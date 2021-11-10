@@ -1,5 +1,10 @@
 # SEC13Flist 
 
+##0.3.4.1
+
+* removed imports of xml2 and purrr
+* rstudio cloud build
+
 ##0.3.4
 
 * fixed change on SEC.GOV landing page for list

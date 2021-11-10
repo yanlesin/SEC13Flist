@@ -6,3 +6,6 @@
 ^\.github$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
+^SEC13Flist\.Rcheck$
+^SEC13Flist.*\.tar\.gz$
+^SEC13Flist.*\.tgz$
