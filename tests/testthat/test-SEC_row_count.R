@@ -46,19 +46,17 @@ test_that("Parsed row count equal to total row count per PDF list", {
     url_file <-
       paste0("https://www.sec.gov/divisions/investment/", file_name)
   }
-  else
+  else if(YEAR_ < 2021 | (YEAR_ == 2021 & QUARTER_ <= 1))
   {
-    if (YEAR_ >= 2021 & QUARTER_ >= 2) {
-      file_name <- paste0('13flist', YEAR_, 'q', QUARTER_, '.pdf')
-      url_file <-
-        paste0("https://www.sec.gov/files/investment/",
-               file_name)
-    } else {
-      file_name <- paste0('13flist', YEAR_, 'q', QUARTER_, '.pdf')
-      url_file <-
-        paste0("https://www.sec.gov/divisions/investment/13f/",
-               file_name)
-    }
+    file_name <- paste0('13flist', YEAR_, 'q', QUARTER_, '.pdf')
+    url_file <-
+      paste0("https://www.sec.gov/divisions/investment/13f/",
+             file_name)
+  } else {
+    file_name <- paste0('13flist', YEAR_, 'q', QUARTER_, '.pdf')
+    url_file <-
+      paste0("https://www.sec.gov/files/investment/",
+             file_name)
   }
 
   text <- pdftools::pdf_text(url_file)
