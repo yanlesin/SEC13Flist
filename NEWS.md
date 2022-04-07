@@ -1,5 +1,9 @@
 # SEC13Flist 
 
+##0.3.4.2
+
+* Fixed rollover bug in url_file_func() to work properly in Q1 2022
+
 ##0.3.4.1
 
 * removed imports of xml2 and purrr
