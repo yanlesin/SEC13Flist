@@ -1,5 +1,9 @@
 # SEC13Flist 
 
+## 0.3.4.3
+
+* Fixed issue with 2022 Q2 list related to incorrect parsing for one security 
+
 ## 0.3.4.2
 
 * Fixed rollover bug in url_file_func() to work properly in Q1 2022

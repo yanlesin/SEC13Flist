@@ -179,13 +179,22 @@ process_file_func <- function(text, YEAR_, QUARTER_){
       !!STATUS := stringr::str_trim(substr(PDF_STRING, STATUS_start, STATUS_end), side =
                                       "both"),
       !!CUSIP := stringr::str_replace_all(CUSIP, " ", ""),
+      #handling of edge cases for cut-offs
       STATUS=ifelse(STATUS=="DDED"|STATUS=="ELETED",
                     paste0(stringr::str_sub(ISSUER_DESCRIPTION,-1),STATUS),
                     STATUS),
       ISSUER_DESCRIPTION=ifelse(STATUS=="DDED"|STATUS=="ELETED",
                                 stringr::str_trim(stringr::str_sub(ISSUER_DESCRIPTION, 1, stringr::str_length(ISSUER_DESCRIPTION)-1),
                                                   side="right"),
-                                ISSUER_DESCRIPTION)
+                                ISSUER_DESCRIPTION),
+
+      ISSUER_DESCRIPTION=ifelse(STATUS=="D   ADDED",
+                                stringr::str_trim(
+                                  paste0(ISSUER_DESCRIPTION, stringr::str_sub(STATUS, 1, 4))),
+                                ISSUER_DESCRIPTION),
+      STATUS=ifelse(STATUS=="D   ADDED",
+                    stringr::str_sub(STATUS, 5, 9),
+                    STATUS)
 
     ) %>%
     dplyr::filter(!stringr::str_detect(CUSIP, "CUSIP")) %>%
