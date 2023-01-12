@@ -143,7 +143,7 @@ process_file_func <- function(text, YEAR_, QUARTER_){
     dplyr::filter(!stringr::str_detect(PDF_STRING, "Run Date")) %>%
     dplyr::filter(!stringr::str_detect(PDF_STRING, "Run Time")) %>%
     dplyr::filter(!stringr::str_detect(PDF_STRING, "Total C")) %>%
-    dplyr::filter(stringr::str_detect(PDF_STRING, "")) %>%
+    dplyr::filter(PDF_STRING != "") %>%
     dplyr::filter(!stringr::str_detect(PDF_STRING, "\f")) %>%
     tidyr::fill(CUSIP_start, ISSUER_NAME_start, ISSUER_DESCRIPTION_start, STATUS_start, .direction = "down") %>%
     dplyr::mutate(!!CUSIP_end:=CUSIP_start+11-1,
@@ -183,11 +183,16 @@ process_file_func <- function(text, YEAR_, QUARTER_){
       STATUS=ifelse(STATUS=="DDED"|STATUS=="ELETED",
                     paste0(stringr::str_sub(ISSUER_DESCRIPTION,-1),STATUS),
                     STATUS),
+      STATUS = ifelse(STATUS == "D",
+                      "",
+                      STATUS),
       ISSUER_DESCRIPTION=ifelse(STATUS=="DDED"|STATUS=="ELETED",
                                 stringr::str_trim(stringr::str_sub(ISSUER_DESCRIPTION, 1, stringr::str_length(ISSUER_DESCRIPTION)-1),
                                                   side="right"),
                                 ISSUER_DESCRIPTION),
-
+      ISSUER_DESCRIPTION = ifelse(STATUS == "D",
+                                  paste0(ISSUER_DESCRIPTION, "D"),
+                                  ISSUER_DESCRIPTION),
       ISSUER_DESCRIPTION=ifelse(STATUS=="D   ADDED",
                                 stringr::str_trim(
                                   paste0(ISSUER_DESCRIPTION, stringr::str_sub(STATUS, 1, 4))),
