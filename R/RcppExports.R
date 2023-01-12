@@ -31,3 +31,18 @@ isCusip <- function(s) {
     .Call(`_SEC13Flist_isCusip`, s)
 }
 
+#' @title Check validity of ISIN code
+#'
+#' @description This function check validity of ISIN code by comparing calculated checksum digit based on first 11 characters of CUSIP code with 12th character of CUSIP code - checksum digit
+#' @param s twelve-character string with ISIN code to validate
+#' @keywords ISIN checksum digit
+#' @return Logical value indicating validity of ISIN number: \code{TRUE} if ISIN number is valid, \code{FALSE} if ISIN number is invalid
+#' @examples
+#' library(SEC13Flist)
+#' isIsin("US0378331009") #invalid ISIN example
+#' isIsin("US0378331005") #valid ISIN example
+#' @export
+isIsin <- function(s) {
+    .Call(`_SEC13Flist_isIsin`, s)
+}
+

@@ -32,10 +32,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// isIsin
+bool isIsin(const std::string& s);
+RcppExport SEXP _SEC13Flist_isIsin(SEXP sSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::string& >::type s(sSEXP);
+    rcpp_result_gen = Rcpp::wrap(isIsin(s));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_SEC13Flist_fullCusip", (DL_FUNC) &_SEC13Flist_fullCusip, 1},
     {"_SEC13Flist_isCusip", (DL_FUNC) &_SEC13Flist_isCusip, 1},
+    {"_SEC13Flist_isIsin", (DL_FUNC) &_SEC13Flist_isIsin, 1},
     {NULL, NULL, 0}
 };
 
