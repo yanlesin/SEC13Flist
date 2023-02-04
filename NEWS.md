@@ -1,8 +1,12 @@
 # SEC13Flist 
 
+## 0.3.5.3
+
+* removed dependency on `readr`
+
 ## 0.3.5.2
 
-* removed dependencies on `magrittr`, `stringr` packages by using native R pipe operator
+* removed dependencies on `magrittr`, `stringr` packages by using native R pipe operator. Now requires R > 4.1.0
 * replaced `dplyr::na_if` call with base r functionality to handle changes in dplyr 1.1.0
 
 ## 0.3.5.0

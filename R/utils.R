@@ -121,7 +121,7 @@ process_file_func <- function(text, YEAR_, QUARTER_) {
 
   table_start <- match(1, regexpr("Run Date:", text))
 
-  text2 <- readr::read_lines(text)
+  text2 <- readLines(con = textConnection(text))
   table_start_2 <- match(1, regexpr("Run Date:", text2))
   pages_2 <- length(text2)
   text2 <- text2[table_start_2:pages_2] |>
