@@ -5,10 +5,10 @@ test_that("Parsed row count equal to total row count per PDF list", {
     rvest::read_html(url_SEC),'#block-secgov-content :nth-child(1)'
   )[[24]], "href")
 
-  current_year <- stringr::str_sub(current_list_url,stringr::str_length(current_list_url)-9,stringr::str_length(current_list_url)-6) %>%
+  current_year <- substr(current_list_url,nchar(current_list_url)-9,nchar(current_list_url)-6) |>
     as.integer()
 
-  current_quarter <- stringr::str_sub(current_list_url,stringr::str_length(current_list_url)-4,stringr::str_length(current_list_url)-4) %>%
+  current_quarter <- substr(current_list_url,nchar(current_list_url)-4,nchar(current_list_url)-4) |>
     as.integer()
 
   #if (missing(YEAR_)&current_year==0|missing(QUARTER_)&current_quarter==0) stop("Error: Unable to determine current year or quarter. Please supply YEAR and QUARTER in function call and report this error")
@@ -60,8 +60,9 @@ test_that("Parsed row count equal to total row count per PDF list", {
   }
 
   text <- pdftools::pdf_text(url_file)
-  page_total_count <- min(which(!is.na(stringr::str_locate(text,"Total Count:")[,1])))
-  total_count <- as.integer(gsub("[^0-9.-]", "", stringr::str_sub(text[page_total_count],stringr::str_locate(text[page_total_count],"Total Count: ")[2]+1)))
+  page_total_count <- min(which(!(regexpr("Total Count:", text)) == -1))
+  total_count <- as.integer(gsub("[^0-9.-]", "", substr(text[page_total_count],
+                                                        regexpr("Total Count: ", text[page_total_count])[1]+1, nchar(text[page_total_count]))))
 
   total_count_parse <- dplyr::count(SEC13Flist::SEC_13F_list())$n
 
