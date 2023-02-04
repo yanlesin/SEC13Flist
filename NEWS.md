@@ -1,9 +1,14 @@
 # SEC13Flist 
 
+## 0.3.5.2
+
+* removed dependencies on `magrittr`, `stringr` packages by using native R pipe operator
+* replaced `dplyr::na_if` call with base r functionality to handle changes in dplyr 1.1.0
+
 ## 0.3.5.0
 
-* fixed error with str_detect empty string matching 
-* fixed status "D" for single ISSUE_DESCRIPTION outside of bounds for column
+* fixed error with `str_detect` empty string matching 
+* fixed status "D" for single `ISSUE_DESCRIPTION` outside of bounds for column
 
 ## 0.3.4.3
 

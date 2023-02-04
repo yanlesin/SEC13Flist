@@ -34,10 +34,10 @@ SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
     rvest::read_html(url_SEC),'#block-secgov-content :nth-child(1)'
   )[[24]], "href")
 
-  current_year <- stringr::str_sub(current_list_url,stringr::str_length(current_list_url)-9,stringr::str_length(current_list_url)-6) %>%
+  current_year <- substr(current_list_url,nchar(current_list_url)-9,nchar(current_list_url)-6) |>
     as.integer()
 
-  current_quarter <- stringr::str_sub(current_list_url,stringr::str_length(current_list_url)-4,stringr::str_length(current_list_url)-4) %>%
+  current_quarter <- substr(current_list_url,nchar(current_list_url)-4,nchar(current_list_url)-4) |>
     as.integer()
 
   if (missing(YEAR_)) {
