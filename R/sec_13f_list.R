@@ -24,7 +24,6 @@
 #' }
 #' @useDynLib SEC13Flist, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
-#' @importFrom rlang ':='
 
 SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
 

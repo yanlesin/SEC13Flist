@@ -21,7 +21,6 @@
 #' }
 #' @useDynLib SEC13Flist, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
-#' @importFrom rlang ':='
 
 SEC_13F_list_local <- function(path_to_13f_file){
 

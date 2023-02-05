@@ -1,6 +1,6 @@
 Package: SEC13Flist
 Title: Routines to Work with Official List of SEC Section 13(f) Securities and Security Identifiers
-Version: 0.3.5.3
+Version: 0.3.5.4
 Authors@R: 
     person(given = "Yan",
            family = "Lyesin",
@@ -9,11 +9,9 @@ Authors@R:
 Description: Extract official list of SEC Section 13(f) securities in data processing friendly format. Extracted data could be used for analysis or export in required format using existing export functionality (in CSV, database connections, or other required format). Official list of SEC Section 13(f) securities published quarterly on SEC website <https://www.sec.gov/divisions/investment/13flists.htm> in PDF format (500+ pages) and used in mandatory quarterly reporting for financial firms. Also provides function to validate Committee on Uniform Securities Identification Procedures numbers for any security including numbers provided in SEC official list.
 Imports: 
     pdftools,
-    dplyr,
     tidyr,
     rvest (>= 1.0.0),
-    Rcpp,
-    rlang
+    Rcpp
 License: CC0
 Encoding: UTF-8
 LazyData: true

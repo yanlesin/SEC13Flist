@@ -11,7 +11,6 @@
 #' isSedol("2046251") #valid SEDOL example
 #' @useDynLib SEC13Flist, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
-#' @importFrom rlang ':='
 
 isSedol <- function(s){
   if (nchar(s) != 7) return(FALSE)

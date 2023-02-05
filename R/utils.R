@@ -116,6 +116,17 @@ process_file_func <- function(text, YEAR_, QUARTER_) {
   ISSUER_DESCRIPTION_start <- NULL
   STATUS_start <- NULL
   PDF_STRING <- NULL
+  CUSIP_end <- NULL
+  HAS_LISTED_OPTION_start <- NULL
+  HAS_LISTED_OPTION_end <- NULL
+  ISSUER_NAME_end <- NULL
+  ISSUER_DESCRIPTION_end <- NULL
+  STATUS_end <- NULL
+  CUSIP <- NULL
+  HAS_LISTED_OPTION <- NULL
+  ISSUER_NAME <- NULL
+  ISSUER_DESCRIPTION <- NULL
+  STATUS <- NULL
 
   pages <- length(text)
 
@@ -128,13 +139,6 @@ process_file_func <- function(text, YEAR_, QUARTER_) {
     as.data.frame(stringsAsFactors = FALSE)
   names(text2) <- "PDF_STRING"
 
-  CUSIP_end <- "CUSIP_end"
-  HAS_LISTED_OPTION_start <- "HAS_LISTED_OPTION_start"
-  HAS_LISTED_OPTION_end <- "HAS_LISTED_OPTION_end"
-  ISSUER_NAME_end <- "ISSUER_NAME_end"
-  ISSUER_DESCRIPTION_end <- "ISSUER_DESCRIPTION_end"
-  STATUS_end <- "STATUS_end"
-
   text2$CUSIP_start <- regexpr("CUSIP", text2$PDF_STRING)
   text2$ISSUER_NAME_start <- regexpr("ISSUER NAME", text2$PDF_STRING)
   text2$ISSUER_DESCRIPTION_start  <-  regexpr("ISSUER DESCRIPTION", text2$PDF_STRING)
@@ -145,103 +149,86 @@ process_file_func <- function(text, YEAR_, QUARTER_) {
   text2$ISSUER_DESCRIPTION_start  <- replace(text2$ISSUER_DESCRIPTION_start, which(text2$ISSUER_DESCRIPTION_start == -1), NA)
   text2$STATUS_start <- replace(text2$STATUS_start, which(text2$STATUS_start == -1), NA)
 
-  # subset(text2,
-  #                 !grepl("Run Date", PDF_STRING) |
-  #                   !grepl("Run Time", PDF_STRING) |
-  #                   !grepl("Total C", PDF_STRING) |
-  #                   PDF_STRING != "" |
-  #                   !grepl("\f", PDF_STRING)
-  #                 )
+  text2 <- subset(text2,
+                  !grepl("Run Date", PDF_STRING) &
+                    !grepl("Run Time", PDF_STRING) &
+                    !grepl("Total C", PDF_STRING) &
+                    PDF_STRING != "" &
+                    !grepl("\f", PDF_STRING)
+                  )
 
   text2 <- text2 |>
-    dplyr::filter(!grepl("Run Date", PDF_STRING)) |>
-    dplyr::filter(!grepl("Run Time", PDF_STRING)) |>
-    dplyr::filter(!grepl("Total C", PDF_STRING)) |>
-    dplyr::filter(PDF_STRING != "") |>
-    dplyr::filter(!grepl("\f", PDF_STRING)) |>
     tidyr::fill(
       CUSIP_start,
       ISSUER_NAME_start,
       ISSUER_DESCRIPTION_start,
       STATUS_start,
       .direction = "down"
-    ) |>
-    dplyr::mutate(
-      !!CUSIP_end := CUSIP_start + 11 - 1,
-      !!HAS_LISTED_OPTION_start := CUSIP_end +
-        1,
-      !!HAS_LISTED_OPTION_end := ISSUER_NAME_start - 1,
-      !!ISSUER_NAME_end := ISSUER_DESCRIPTION_start -
-        1,
-      !!ISSUER_DESCRIPTION_end := STATUS_start - 1,
-      !!STATUS_end := nchar(PDF_STRING),
-      STATUS_end = max(STATUS_end)
     )
 
-  CUSIP <- "CUSIP"
-  HAS_LISTED_OPTION <- "HAS_LISTED_OPTION"
-  ISSUER_NAME <- "ISSUER_NAME"
-  ISSUER_DESCRIPTION <- "ISSUER_DESCRIPTION"
-  STATUS <- "STATUS"
-  CUSIP <- "CUSIP"
+  text2$CUSIP_end <- text2$CUSIP_start + 11 - 1
+  text2$HAS_LISTED_OPTION_start <-  text2$CUSIP_end + 1
+  text2$HAS_LISTED_OPTION_end <-  text2$ISSUER_NAME_start - 1
+  text2$ISSUER_NAME_end <- text2$ISSUER_DESCRIPTION_start -1
+  text2$ISSUER_DESCRIPTION_end  <- text2$STATUS_start - 1
+  text2$STATUS_end <- nchar(text2$PDF_STRING)
+  text2$STATUS_end <- max(text2$STATUS_end)
 
-  List_13F <- text2 |>
-    dplyr::mutate(
-      !!CUSIP := substr(PDF_STRING, CUSIP_start, CUSIP_end),
-      !!HAS_LISTED_OPTION := trimws(substr(PDF_STRING, HAS_LISTED_OPTION_start, HAS_LISTED_OPTION_end),
-        "both"),
-      !!ISSUER_NAME := trimws(substr(PDF_STRING, ISSUER_NAME_start, ISSUER_NAME_end),
-        "both"),
-      !!ISSUER_DESCRIPTION := trimws(
+  text2$CUSIP<- substr(text2$PDF_STRING, text2$CUSIP_start, text2$CUSIP_end)
+  text2$HAS_LISTED_OPTION <- trimws(substr(text2$PDF_STRING, text2$HAS_LISTED_OPTION_start, text2$HAS_LISTED_OPTION_end), "both")
+  text2$ISSUER_NAME <- trimws(substr(text2$PDF_STRING, text2$ISSUER_NAME_start, text2$ISSUER_NAME_end),
+        "both")
+  text2$ISSUER_DESCRIPTION <- trimws(
         substr(
-          PDF_STRING,
-          ISSUER_DESCRIPTION_start,
-          ISSUER_DESCRIPTION_end
+          text2$PDF_STRING,
+          text2$ISSUER_DESCRIPTION_start,
+          text2$ISSUER_DESCRIPTION_end
         ),
-        "both"),
-      !!STATUS := trimws(substr(PDF_STRING, STATUS_start, STATUS_end), "both"),!!CUSIP := gsub(" ", "", CUSIP),
+        "both")
+  text2$STATUS <- trimws(substr(text2$PDF_STRING, text2$STATUS_start, text2$STATUS_end), "both")
+  text2$CUSIP <- gsub(" ", "", text2$CUSIP)
       #handling of edge cases for cut-offs
-      STATUS = ifelse(
-        STATUS == "DDED" | STATUS == "ELETED",
+  text2$STATUS = ifelse(
+    text2$STATUS == "DDED" | text2$STATUS == "ELETED",
         paste0(substr(
-          ISSUER_DESCRIPTION,
-          nchar(ISSUER_DESCRIPTION),
-          nchar(ISSUER_DESCRIPTION)
-        ), STATUS),
-        STATUS
-      ),
-      STATUS = ifelse(STATUS == "D",
-                      "",
-                      STATUS),
-      ISSUER_DESCRIPTION = ifelse(
-        STATUS == "DDED" | STATUS == "ELETED",
-        trimws(substr(
-          ISSUER_DESCRIPTION, 1, nchar(ISSUER_DESCRIPTION) - 1
-        ),
-        "right"),
-        ISSUER_DESCRIPTION
-      ),
-      ISSUER_DESCRIPTION = ifelse(
-        STATUS == "D",
-        paste0(ISSUER_DESCRIPTION, "D"),
-        ISSUER_DESCRIPTION
-      ),
-      ISSUER_DESCRIPTION = ifelse(
-        STATUS == "D   ADDED",
+          text2$ISSUER_DESCRIPTION,
+          nchar(text2$ISSUER_DESCRIPTION),
+          nchar(text2$ISSUER_DESCRIPTION)
+        ), text2$STATUS),
+    text2$STATUS
+      )
+  text2$STATUS = ifelse(text2$STATUS == "D", "", text2$STATUS)
+  text2$ISSUER_DESCRIPTION = ifelse(
+    text2$STATUS == "DDED" | text2$STATUS == "ELETED",
+    trimws(substr(
+      text2$ISSUER_DESCRIPTION,
+      1,
+      nchar(text2$ISSUER_DESCRIPTION) - 1
+    ),
+    "right"),
+    text2$ISSUER_DESCRIPTION
+  )
+  text2$ISSUER_DESCRIPTION = ifelse(
+    text2$STATUS == "D",
+        paste0(text2$ISSUER_DESCRIPTION, "D"),
+    text2$ISSUER_DESCRIPTION
+      )
+  text2$ISSUER_DESCRIPTION = ifelse(
+    text2$STATUS == "D   ADDED",
         trimws(paste0(
-          ISSUER_DESCRIPTION, substr(STATUS, 1, 4)
+          text2$ISSUER_DESCRIPTION, substr(text2$STATUS, 1, 4)
         ), "both"),
-        ISSUER_DESCRIPTION
-      ),
-      STATUS = ifelse(STATUS == "D   ADDED",
-                      substr(STATUS, 5, 9),
-                      STATUS)
-    ) |>
-    dplyr::filter(!grepl("CUSIP", CUSIP))
+    text2$ISSUER_DESCRIPTION
+      )
+  text2$STATUS = ifelse(text2$STATUS == "D   ADDED",
+                      substr(text2$STATUS, 5, 9),
+                      text2$STATUS)
 
-  List_13F$YEAR <- YEAR_
-  List_13F$QUARTER <- QUARTER_
-  List_13F <- List_13F[-c(1:11)]
+  text2 <- subset(text2, !grepl("CUSIP", text2$CUSIP))
 
-  return(List_13F)
+  text2$YEAR <- YEAR_
+  text2$QUARTER <- QUARTER_
+  text2 <- text2[-c(1:11)]
+
+  return(text2)
 }

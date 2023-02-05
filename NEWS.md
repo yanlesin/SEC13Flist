@@ -1,5 +1,9 @@
 # SEC13Flist 
 
+## 0.3.5.4
+
+* removed dependency on `dplyr` and `rlang`
+
 ## 0.3.5.3
 
 * removed dependency on `readr`

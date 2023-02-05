@@ -1,4 +1,6 @@
 test_that("list of possible values for HAS_LISTED_OPTION column", {
-  list_HAS_LISTED_OPTION <- dplyr::count(dplyr::filter(dplyr::distinct(dplyr::select(SEC13Flist::SEC_13F_list(), HAS_LISTED_OPTION)),!HAS_LISTED_OPTION %in% c("","*")))$n
+  list_all <- SEC13Flist::SEC_13F_list()
+  list_all <- unique(list_all["HAS_LISTED_OPTION"])
+  list_HAS_LISTED_OPTION <- nrow(subset(list_all, !HAS_LISTED_OPTION %in% c("","*")))
   expect_equal(list_HAS_LISTED_OPTION, 0)
 })

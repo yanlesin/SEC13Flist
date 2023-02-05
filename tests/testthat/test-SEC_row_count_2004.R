@@ -66,7 +66,7 @@ test_that("Parsed row count equal to total row count per PDF list for 2004 Q1", 
   total_count <- as.integer(gsub("[^0-9.-]", "", substr(text[page_total_count],
                                                         regexpr("Total Count: ", text[page_total_count])[1]+1, nchar(text[page_total_count]))))
 
-  total_count_parse <- dplyr::count(SEC13Flist::SEC_13F_list(2004,1))$n
+  total_count_parse <- nrow(SEC13Flist::SEC_13F_list(2004,1))
 
   expect_equal(total_count, total_count_parse)
 })
