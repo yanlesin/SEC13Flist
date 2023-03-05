@@ -9,8 +9,6 @@
 #' library(SEC13Flist)
 #' isSedol("2046252") #invalid SEDOL example
 #' isSedol("2046251") #valid SEDOL example
-#' @useDynLib SEC13Flist, .registration = TRUE
-#' @importFrom Rcpp sourceCpp
 
 isSedol <- function(s){
   if (nchar(s) != 7) return(FALSE)

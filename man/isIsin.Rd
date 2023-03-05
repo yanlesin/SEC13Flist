@@ -4,10 +4,10 @@
 \alias{isIsin}
 \title{Check validity of ISIN code}
 \usage{
-isIsin(s)
+isIsin(isin)
 }
 \arguments{
-\item{s}{twelve-character string with ISIN code to validate}
+\item{isin}{twelve-character string with ISIN code to validate}
 }
 \value{
 Logical value indicating validity of ISIN number: \code{TRUE} if ISIN number is valid, \code{FALSE} if ISIN number is invalid
