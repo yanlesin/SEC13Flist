@@ -33,13 +33,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // isIsin
-bool isIsin(const std::string& s);
-RcppExport SEXP _SEC13Flist_isIsin(SEXP sSEXP) {
+bool isIsin(const std::string& isin);
+RcppExport SEXP _SEC13Flist_isIsin(SEXP isinSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::string& >::type s(sSEXP);
-    rcpp_result_gen = Rcpp::wrap(isIsin(s));
+    Rcpp::traits::input_parameter< const std::string& >::type isin(isinSEXP);
+    rcpp_result_gen = Rcpp::wrap(isIsin(isin));
     return rcpp_result_gen;
 END_RCPP
 }

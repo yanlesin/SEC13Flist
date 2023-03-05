@@ -1,5 +1,10 @@
 # SEC13Flist 
 
+## 0.3.5.5
+
+* added `isSedol` function to check validity of SEDOL
+* added `isIsin` function to check validity of ISIN
+
 ## 0.3.5.4
 
 * removed dependency on `dplyr` and `rlang`
