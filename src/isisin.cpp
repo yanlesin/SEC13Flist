@@ -28,7 +28,7 @@ bool isIsin(const std::string& isin) {
       s[j++] = k / 10;
       s[j++] = k % 10;
     } else {
-      return 0;
+      return false;
     }
   }
 
