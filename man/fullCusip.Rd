@@ -2,22 +2,22 @@
 % Please edit documentation in R/RcppExports.R
 \name{fullCusip}
 \alias{fullCusip}
-\title{Return valid 9-character CUSIP code (with checksum digit) from 8-character CUSIP code (without checksum digit)}
+\title{Return valid 9-character CUSIP identifier (with checksum digit) from 8-character CUSIP identifier (without checksum digit)}
 \usage{
 fullCusip(s)
 }
 \arguments{
-\item{s}{eight-character string with CUSIP code}
+\item{s}{eight-character string with CUSIP identifier}
 }
 \value{
-String value with full 9-character CUSIP number, or "0" if supplied input is not 8-character CUSIP string
+String value with full 9-character CUSIP identifier, or "0" if supplied input is not 8-character CUSIP string
 }
 \description{
-This function returns full CUSIP code by adding calculated checksum digit to 8-character CUSIP code. If supplied CUSIP code is not 8 characters, function returns "0"
+This function returns full CUSIP code by adding calculated checksum digit to 8-character CUSIP identifier. If supplied CUSIP identifier is not 8 characters, function returns "0"
 }
 \examples{
 library(SEC13Flist)
-fullCusip("B38564109") #returns zero - supplied code is not 8-character CUSIP code
+fullCusip("B38564109") #returns zero - supplied code is not 8-character CUSIP identifier
 fullCusip("B3856410") #valid CUSIP returned example
 }
 \keyword{CUSIP}

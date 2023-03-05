@@ -15,8 +15,9 @@
 #' }
 #' @export
 #' @examples
-#' \dontrun{library(SEC13Flist)
-#' SEC_13F_list_2018_Q3 <- SEC_13F_list_local("/Users/user_name/Downloads/13flist2020q4.pdf")
+#' \dontrun{
+#' library(SEC13Flist)
+#' SEC_13F_list_2018_Q4 <- SEC_13F_list_local("/Users/user_name/Downloads/13flist2020q4.pdf")
 #' #Parse list from "Downloads" folder
 #' }
 #' @useDynLib SEC13Flist, .registration = TRUE

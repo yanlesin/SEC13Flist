@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-//' @title Check validity of CUSIP code
+//' @title Check validity of CUSIP identifier
 //'
 //' @description This function check validity of CUSIP code by comparing calculated checksum digit based on first 8 characters of CUSIP code with 9th character of CUSIP code - checksum digit
 //' @param s nine-character string with CUSIP code to validate

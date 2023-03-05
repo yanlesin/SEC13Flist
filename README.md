@@ -12,20 +12,32 @@ status](https://github.com/yanlesin/SEC13Flist/workflows/R-CMD-check/badge.svg)]
 The goal of SEC13Flist package is to provide routines to work with
 official list of Section 13(f) Securities.
 
-Function `SEC_13F_list` parses PDF list from
+Functions `SEC_13F_list` and `SEC_13F_list_local` parses PDF list from
 [SEC.gov](https://www.sec.gov/divisions/investment/13flists.htm) based
 on supplied year and quarter and returns data frame with list of
-securities, maintaining the same structure as official list. Function
+securities, maintaining the same structure as official list. Functions
 appends YEAR and QUARTER columns to the list. Returned dataframe could
 be customized and filtered according to your needs.
 
-Function `isCusip` verifies checksum digit (9th digit) for CUSIP code
-based on first eight characters of CUSIP. Function returns
-`TRUE`/`FALSE` for correct/incorrect CUSIP code.
+`SEC_13F_list` function reaches to
+[SEC.gov](https://www.sec.gov/divisions/investment/13flists.htm) website
+and requires tweaks if landing page changes. In case of a breaking
+change on landing page, you can use `SEC_13F_list_local` function to
+parse file downloaded to local folder manually.
 
-CUSIP checksum calculation pseudo code located at
-[Wikipedia](https://en.wikipedia.org/wiki/CUSIP) and C++ implementation
-is at [Rosettacode](https://rosettacode.org/wiki/CUSIP#C.2B.2B).
+Functions `isCusip`, `isSedol`, and `isIsin` verify checksum digit of
+security identifiers based on leading characters of the identifier
+(except last checksum digit). Functions returns `TRUE`/`FALSE` for
+correct/incorrect identifier.
+
+CUSIP, ISIN, and SEDOL checksum calculation pseudo code located at
+[Wikipedia - CUSIP](https://en.wikipedia.org/wiki/CUSIP), [Wikipedia -
+SEDOL](https://en.wikipedia.org/wiki/SEDOL), [Wikipedia -
+ISIN](https://en.wikipedia.org/wiki/International_Securities_Identification_Number)
+and R/C/C++ implementation is at [Rosettacode -
+CUSIP](https://rosettacode.org/wiki/CUSIP#C.2B.2B), [Rosettacode -
+SEDOL](https://rosettacode.org/wiki/SEDOLs#R), and [Rosettacode -
+ISIN](https://rosettacode.org/wiki/Validate_International_Securities_Identification_Number#C)
 
 ## Installation
 
@@ -33,7 +45,7 @@ You can install current development version from
 [GitHub](https://github.com/yanlesin/SEC13Flist) with:
 
 ``` r
-devtools::install_github("yanlesin/SEC13Flist")
+remotes::install_github("yanlesin/SEC13Flist")
 ```
 
 ## Description of returned data for `SEC_13F_list`
@@ -65,13 +77,13 @@ SEC13Flist_2018_Q3 <- SEC_13F_list(2018,3)
 SEC13Flist_current <- SEC_13F_list() #Current list form SEC website
 
 ## Customizing
-SEC13Flist_current <- SEC_13F_list() %>% 
-  filter(STATUS!="DELETED") %>% #Filter out records with STATUS "DELETED"
+SEC13Flist_current <- SEC_13F_list() |> 
+  filter(STATUS!="DELETED") |>  #Filter out records with STATUS "DELETED"
   select(-YEAR,-QUARTER) #Remove YEAR and QUARTER columns
 
 ## Verifying CUSIP
-verify_CUSIP <- SEC_13F_list() %>%
-  rowwise() %>% ##CUSIPs are not unique, isCusip function is not vectorized and requires single nine character CUSIP as input
+verify_CUSIP <- SEC_13F_list() |> 
+  rowwise() |>  ##CUSIPs are not unique, isCusip function is not vectorized and requires single nine character CUSIP as input
   mutate(VALID_CUSIP=isCusip(CUSIP)) ##validating CUSIP
 ```
 
@@ -109,12 +121,12 @@ article](https://fundapps.zendesk.com/hc/en-us/articles/204837769-13F-list-Optio
 describes how FundApps (software provider for regulatory compliance)
 addresses quality issue for CUSIP codes including all option securities
 with the same first six-character subset of CUSIP code as main issue (\*
-for HAS\_LISTED\_OPTION field in the list).
+for HAS_LISTED_OPTION field in the list).
 
 Based on analysis of the most recent file (Q3 2019) I can confirm that:
 
--   not only CALL and PUT options supplied with invalid CUSIP, but also
-    some main issues as well
+- not only CALL and PUT options supplied with invalid CUSIP, but also
+  some main issues as well
 
--   some CUSIP codes are used more than once (up to eight securities
-    with the same CUSIP in the list)
+- some CUSIP codes are used more than once (up to eight securities with
+  the same CUSIP in the list)

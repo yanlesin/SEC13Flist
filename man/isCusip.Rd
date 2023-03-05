@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{isCusip}
 \alias{isCusip}
-\title{Check validity of CUSIP code}
+\title{Check validity of CUSIP identifier}
 \usage{
 isCusip(s)
 }

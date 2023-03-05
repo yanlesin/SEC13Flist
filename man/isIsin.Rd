@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{isIsin}
 \alias{isIsin}
-\title{Check validity of ISIN code}
+\title{Check validity of ISIN identifier}
 \usage{
 isIsin(isin)
 }

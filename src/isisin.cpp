@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-//' @title Check validity of ISIN code
+//' @title Check validity of ISIN identifier
 //'
 //' @description This function check validity of ISIN code by comparing calculated checksum digit based on first 11 characters of CUSIP code with 12th character of CUSIP code - checksum digit
 //' @param isin twelve-character string with ISIN code to validate

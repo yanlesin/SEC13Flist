@@ -25,8 +25,9 @@ A data frame that contains official list of Section 13(f) securities with the fo
 This function parses file with official list of Section 13(f) securities downloaded from SEC website <https://www.sec.gov/divisions/investment/13flists.htm>, and returns a data frame. Year and quarter of the list determined based on name of the file.
 }
 \examples{
-\dontrun{library(SEC13Flist)
-SEC_13F_list_2018_Q3 <- SEC_13F_list_local("/Users/user_name/Downloads/13flist2020q4.pdf")
+\dontrun{
+library(SEC13Flist)
+SEC_13F_list_2018_Q4 <- SEC_13F_list_local("/Users/user_name/Downloads/13flist2020q4.pdf")
 #Parse list from "Downloads" folder
 }
 }
