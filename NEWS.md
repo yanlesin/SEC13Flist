@@ -1,5 +1,9 @@
 # SEC13Flist 
 
+## 0.3.5.6
+
+* fixed issue with 2023 Q3 list parsing
+
 ## 0.3.5.5
 
 * added `isSedol` function to check validity of SEDOL
