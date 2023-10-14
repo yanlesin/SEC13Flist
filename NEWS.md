@@ -1,5 +1,10 @@
 # SEC13Flist 
 
+## 0.3.6
+
+* fixed issue with isCusip function incorrectly returned FALSE for certain CUSIPs (issue #75)
+* fixes parsing for ISSUER_DESCRIPTION field where letter from STATUS left in it
+
 ## 0.3.5.6
 
 * fixed issue with 2023 Q3 list parsing
