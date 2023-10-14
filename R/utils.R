@@ -223,6 +223,17 @@ process_file_func <- function(text, YEAR_, QUARTER_) {
   text2$STATUS = ifelse(text2$STATUS == "D   ADDED",
                       substr(text2$STATUS, 5, 9),
                       text2$STATUS)
+#2023 Q3 report
+  text2$ISSUER_DESCRIPTION = ifelse(
+    text2$STATUS == "RG   ADDED",
+    trimws(paste0(
+      text2$ISSUER_DESCRIPTION, substr(text2$STATUS, 1, 5)
+    ), "both"),
+    text2$ISSUER_DESCRIPTION
+  )
+  text2$STATUS = ifelse(text2$STATUS == "RG   ADDED",
+                        substr(text2$STATUS, 6, 10),
+                        text2$STATUS)
 
   text2 <- subset(text2, !grepl("CUSIP", text2$CUSIP))
 
