@@ -114,7 +114,7 @@ Services](https://www.cusip.com/cusip/cgs-license-fees.htm):
 [This discussion at
 stackexchange](https://quant.stackexchange.com/questions/16392/sec-13f-security-list-has-incorrect-cusip-numbers)
 describes problem with CUSIP codes for CALL and PUT options that is
-still present at current list (Q3 2019 at the moment of updating this).
+still present at current list.
 
 [This discussion at FundApps support
 article](https://fundapps.zendesk.com/hc/en-us/articles/204837769-13F-list-Option-CUSIP-matching)
@@ -122,11 +122,3 @@ describes how FundApps (software provider for regulatory compliance)
 addresses quality issue for CUSIP codes including all option securities
 with the same first six-character subset of CUSIP code as main issue (\*
 for HAS_LISTED_OPTION field in the list).
-
-Based on analysis of the most recent file (Q3 2019) I can confirm that:
-
-- not only CALL and PUT options supplied with invalid CUSIP, but also
-  some main issues as well
-
-- some CUSIP codes are used more than once (up to eight securities with
-  the same CUSIP in the list)
