@@ -25,7 +25,7 @@ std::string fullCusip(const std::string& s) {
     if ('0' <= c && c <= '9') {
       v = c - '0';
     } else if ('A' <= c && c <= 'Z') {
-      v = c - '@';
+      v = c - 'A' + 10;
     } else if (c == '*') {
       v = 36;
     } else if (c == '#') {
