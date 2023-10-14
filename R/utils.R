@@ -200,22 +200,17 @@ process_file_func <- function(text, YEAR_, QUARTER_) {
     text2$ISSUER_DESCRIPTION
   )
   #Then you can fix STATUS
-  text2$STATUS = ifelse(
-    text2$STATUS == "DDED" | text2$STATUS == "ELETED",
-        paste0(substr(
-          text2$ISSUER_DESCRIPTION,
-          nchar(text2$ISSUER_DESCRIPTION),
-          nchar(text2$ISSUER_DESCRIPTION)
-        ), text2$STATUS),
-    text2$STATUS
-      )
-  text2$STATUS = ifelse(text2$STATUS == "D", "", text2$STATUS)
+  text2$STATUS = ifelse(text2$STATUS == "DDED", "ADDED", text2$STATUS)
+  text2$STATUS = ifelse(text2$STATUS == "ELETED", "DELETED", text2$STATUS)
 
   text2$ISSUER_DESCRIPTION = ifelse(
     text2$STATUS == "D",
         paste0(text2$ISSUER_DESCRIPTION, "D"),
     text2$ISSUER_DESCRIPTION
       )
+
+  text2$STATUS = ifelse(text2$STATUS == "D", "", text2$STATUS)
+
   text2$ISSUER_DESCRIPTION = ifelse(
     text2$STATUS == "D   ADDED",
         trimws(paste0(
