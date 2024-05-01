@@ -26,7 +26,7 @@ A data frame that contains official list of Section 13(f) securities with the fo
 }
 }
 \description{
-This function downloads, specified by Year and Quarter (starting from year 2004, quarter 1), official list of Section 13(f) securities from SEC website <https://www.sec.gov/divisions/investment/13flists.htm>, parses it and returns a data frame. If no parameters provided, function determines year and quarter based on Current List section of SEC website <https://www.sec.gov/divisions/investment/13flists.htm>
+This function downloads, specified by Year and Quarter (starting from year 2004, quarter 1), official list of Section 13(f) securities from SEC website \url{https://www.sec.gov/divisions/investment/13flists.htm}, parses it and returns a data frame. If no parameters provided, function determines year and quarter based on Current List section of SEC website \url{https://www.sec.gov/divisions/investment/13flists.htm}
 }
 \examples{
 \donttest{library(SEC13Flist)

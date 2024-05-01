@@ -1,5 +1,12 @@
 # SEC13Flist 
 
+## 1.0.0
+
+* significant change: `SEC_13F_list` function now requires user agent setup for reading data from sec.gov website
+* added data with historical official lists starting from Q1 2004 (first list that could be parsed) - see description of each data set and appropriate names for each quarter. Data section will be updated quarterly with new list
+* fixed issue with 2023 Q4 list parsing
+* modified tests to include user agent information for sec.gov access
+
 ## 0.3.6
 
 * fixed issue with isCusip function incorrectly returned FALSE for certain CUSIPs (issue #75)
