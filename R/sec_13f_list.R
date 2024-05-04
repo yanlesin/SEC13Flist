@@ -17,7 +17,7 @@
 #' }
 #' @export
 #' @examples
-#' \donttest{library(SEC13Flist)
+#' \dontrun{library(SEC13Flist)
 #' SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Parse list for Q3 2018 without progress indicator
 #' SEC_13F_list_2018_Q3_ <- SEC_13F_list(2018,3,TRUE) #Parse list with progress indicator
 #' SEC_13F_list_current <- SEC_13F_list() #Parse current list from SEC.gov

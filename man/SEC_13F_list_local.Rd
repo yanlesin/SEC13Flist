@@ -22,7 +22,7 @@ A data frame that contains official list of Section 13(f) securities with the fo
 }
 }
 \description{
-This function parses file with official list of Section 13(f) securities downloaded from SEC website <https://www.sec.gov/divisions/investment/13flists.htm>, and returns a data frame. Year and quarter of the list determined based on name of the file.
+This function parses file with official list of Section 13(f) securities downloaded from SEC website \url{https://www.sec.gov/divisions/investment/13flists.htm}, and returns a data frame. Year and quarter of the list determined based on name of the file.
 }
 \examples{
 \dontrun{

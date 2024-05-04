@@ -1,5 +1,11 @@
 # SEC13Flist 
 
+## 1.0.0
+
+* significant change: `SEC_13F_list` function requires user agent setup for reading data from sec.gov website. See [https://www.sec.gov/os/accessing-edgar-data](https://www.sec.gov/os/accessing-edgar-data)
+* fixed issue with 2023 Q4 list parsing
+* modified tests to include user agent information for sec.gov access
+
 ## 0.3.6
 
 * fixed issue with isCusip function incorrectly returned FALSE for certain CUSIPs (issue #75)

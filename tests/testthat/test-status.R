@@ -1,4 +1,5 @@
 test_that("list of possible values for STATUS column", {
+  options(HTTPUserAgent="Yan Lyesin, SEC13Flist Package for R, yan.lyesin@gmail.com ")
   STATUS_1 <- ""
   STATUS_2 <- "ADDED"
   STATUS_3 <- "DELETED"

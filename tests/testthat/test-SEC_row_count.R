@@ -1,4 +1,5 @@
 test_that("Parsed row count equal to total row count per PDF list", {
+  options(HTTPUserAgent="Yan Lyesin, SEC13Flist Package for R, yan.lyesin@gmail.com ")
   url_SEC <- "https://www.sec.gov/divisions/investment/13flists.htm"
 
   current_list_url <- rvest::html_attr(rvest::html_elements(

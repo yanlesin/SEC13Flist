@@ -1,4 +1,5 @@
 test_that("Local processing yields same result as via web-site", {
+  options(HTTPUserAgent="Yan Lyesin, SEC13Flist Package for R, yan.lyesin@gmail.com ")
   if (Sys.info()["sysname"] == "Windows") download.file("https://www.sec.gov/divisions/investment/13f/13flist2020q3.pdf",
                                                         mode = "wb",
                                                         destfile = "13flist2020q3.pdf") else download.file("https://www.sec.gov/divisions/investment/13f/13flist2020q3.pdf",
