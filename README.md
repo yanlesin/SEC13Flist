@@ -25,9 +25,11 @@ be customized and filtered according to your needs.
 [SEC.gov](https://www.sec.gov/divisions/investment/13flists.htm) website
 and requires tweaks if landing page changes. In case of a breaking
 change on landing page, you can use `SEC_13F_list_local` function to
-parse file downloaded to local folder. Function also requires setup of
-user agent prior to attempting download from sec.gov website. For
-details how to setup user agent and maximum request rate please refer to
+parse file downloaded to local folder.
+
+`SEC_13F_list` function requires setup of user agent prior to attempting
+download from sec.gov website. For details how to setup user agent and
+maximum request rate please refer to
 <https://www.sec.gov/os/accessing-edgar-data>.
 
 User agent could be setup via `options(HTTPUserAgent=...)`.
