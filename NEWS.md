@@ -2,8 +2,7 @@
 
 ## 1.0.0
 
-* significant change: `SEC_13F_list` function now requires user agent setup for reading data from sec.gov website
-* added data with historical official lists starting from Q1 2004 (first list that could be parsed) - see description of each data set and appropriate names for each quarter. Data section will be updated quarterly with new list
+* significant change: `SEC_13F_list` function requires user agent setup for reading data from sec.gov website. See [https://www.sec.gov/os/accessing-edgar-data](https://www.sec.gov/os/accessing-edgar-data)
 * fixed issue with 2023 Q4 list parsing
 * modified tests to include user agent information for sec.gov access
 
