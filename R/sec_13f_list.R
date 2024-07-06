@@ -29,9 +29,10 @@ SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
 
   url_SEC <- "https://www.sec.gov/divisions/investment/13flists.htm"
 
-  current_list_url <- rvest::html_attr(rvest::html_elements(
-    rvest::read_html(url_SEC),'#block-secgov-content :nth-child(1)'
-  )[[24]], "href")
+  html_page <- readLines(url_SEC)
+  html_line <- html_page[grep("Current List", html_page)]
+  url <- sub("<a href=\"(.*)\">.*", "\\1", html_line)
+  current_list_url <- sub("^.*https", "https", url)
 
   current_year <- substr(current_list_url,nchar(current_list_url)-9,nchar(current_list_url)-6) |>
     as.integer()
