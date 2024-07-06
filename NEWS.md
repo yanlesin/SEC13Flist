@@ -1,5 +1,10 @@
 # SEC13Flist 
 
+## 1.0.1
+
+* fixed issue related to change in landing page of sec.gov for Official List of securities
+* removed dependency on `rvest`
+
 ## 1.0.0
 
 * significant change: `SEC_13F_list` function requires user agent setup for reading data from sec.gov website. See [https://www.sec.gov/os/accessing-edgar-data](https://www.sec.gov/os/accessing-edgar-data)

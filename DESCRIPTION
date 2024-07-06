@@ -1,6 +1,6 @@
 Package: SEC13Flist
 Title: Functions to Work with Official List of SEC Section 13(f) Securities and Security Identifiers
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: 
     person(given = "Yan",
            family = "Lyesin",
@@ -10,12 +10,11 @@ Description: Extract official list of SEC Section 13(f) securities in data proce
 Imports: 
     pdftools,
     tidyr,
-    rvest (>= 1.0.0),
     Rcpp
 License: CC0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 URL: https://github.com/yanlesin/SEC13Flist
 BugReports: https://github.com/yanlesin/SEC13Flist/issues
 LinkingTo: 
