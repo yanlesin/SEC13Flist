@@ -1,5 +1,9 @@
 # SEC13Flist 
 
+## 1.1.0
+
+* significant change: `SEC_13F_list` function no longer attempts to determine current year and quarter for the official list - it will produce an error when no year and quarter supplied to the function call
+
 ## 1.0.1
 
 * fixed issue related to change in landing page of sec.gov for Official List of securities

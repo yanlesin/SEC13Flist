@@ -20,37 +20,36 @@
 #' \dontrun{library(SEC13Flist)
 #' SEC_13F_list_2018_Q3 <- SEC_13F_list(2018,3) #Parse list for Q3 2018 without progress indicator
 #' SEC_13F_list_2018_Q3_ <- SEC_13F_list(2018,3,TRUE) #Parse list with progress indicator
-#' SEC_13F_list_current <- SEC_13F_list() #Parse current list from SEC.gov
 #' }
 #' @useDynLib SEC13Flist, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 
 SEC_13F_list <- function(YEAR_,QUARTER_, show_progress = FALSE){
 
-  url_SEC <- "https://www.sec.gov/divisions/investment/13flists.htm"
-
-  html_page <- readLines(url_SEC)
-  html_line <- html_page[grep("Current List", html_page)]
-  url <- sub("<a href=\"(.*)\">.*", "\\1", html_line)
-  current_list_url <- sub("^.*https", "https", url)
-
-  current_year <- substr(current_list_url,nchar(current_list_url)-9,nchar(current_list_url)-6) |>
-    as.integer()
-
-  current_quarter <- substr(current_list_url,nchar(current_list_url)-4,nchar(current_list_url)-4) |>
-    as.integer()
+  # url_SEC <- "https://www.sec.gov/divisions/investment/13flists.htm"
+  # 
+  # html_page <- readLines(url_SEC)
+  # html_line <- html_page[grep("Current List", html_page)]
+  # url <- sub("<a href=\"(.*)\">.*", "\\1", html_line)
+  # current_list_url <- sub("^.*https", "https", url)
+  # 
+  # current_year <- substr(current_list_url,nchar(current_list_url)-9,nchar(current_list_url)-6) |>
+  #   as.integer()
+  # 
+  # current_quarter <- substr(current_list_url,nchar(current_list_url)-4,nchar(current_list_url)-4) |>
+  #   as.integer()
+  
+  error_msg <- "Error: sec_13f_list function requires Year and Quarter to read the list from website"
 
   if (missing(YEAR_)) {
-    YEAR_ <- current_year
-    warning("Default year: ", YEAR_)
+    stop(error_msg)
   }
 
   if (missing(QUARTER_)) {
-    QUARTER_ <- current_quarter
-    warning("Default quarter: ", QUARTER_)
+    stop(error_msg)
   }
 
-  url_file <- url_file_func(YEAR_,QUARTER_,current_year,current_quarter)
+  url_file <- url_file_func(YEAR_,QUARTER_)
 
   text <- pdftools::pdf_text(url_file)
 
