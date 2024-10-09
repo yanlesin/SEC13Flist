@@ -16,35 +16,8 @@ line_separator_func <- function(CR, LF, text)
 }
 
 url_file_func <- function(YEAR_,
-                          QUARTER_,
-                          current_year,
-                          current_quarter)
+                          QUARTER_)
 {
-  if (missing(YEAR_) &
-      current_year == 0 |
-      missing(QUARTER_) &
-      current_quarter == 0)
-    stop(
-      "Error: Unable to determine current year or quarter. Please supply YEAR and QUARTER in function call and report this error"
-    )
-
-  if (missing(YEAR_)) {
-    YEAR_ <- current_year
-    warning("Default year: ", YEAR_)
-  }
-
-  if (missing(QUARTER_)) {
-    QUARTER_ <- current_quarter
-    warning("Default quarter: ", QUARTER_)
-  }
-
-  #0,0 supplied in function call
-  if (YEAR_ == 0 |
-      QUARTER_ == 0)
-    stop(
-      "Error: Please supply integer values for YEAR_ and QUARTER_ starting in 2004 Q1. Example: SEC_13F_list(2004, 1)"
-    )
-
   #Validating inputs to the function
   YEAR_ <- as.integer(YEAR_)
   QUARTER_ <- as.integer(QUARTER_)
@@ -59,34 +32,8 @@ url_file_func <- function(YEAR_,
     stop(
       "Error: SEC_13F_list function only works with SEC list files starting at Q1 2004. Example: SEC_13F_list(2004, 1)"
     )
-  if (QUARTER_ > 4)
+  if (QUARTER_ > 4 | QUARTER_ < 1)
     stop("Error: Please, supply integer number for QUARTER_ in range between 1 and 4")
-
-  if (current_year != 0)
-    (if (YEAR_ > current_year)
-      stop (
-        paste0(
-          "Error: no list available for year ",
-          YEAR_,
-          ". Please, use integer number in range 2004..",
-          current_year
-        )
-      ))
-
-  if (current_quarter != 0)
-    (if (YEAR_ == current_year &
-         QUARTER_ > current_quarter)
-      stop (
-        paste0(
-          "Error: no list available for year ",
-          YEAR_,
-          " and quarter ",
-          QUARTER_,
-          ". Last available quarter for current year - ",
-          current_quarter,
-          "."
-        )
-      ))
 
   if (YEAR_ == 2004 & QUARTER_ == 1)
   {

@@ -6,4 +6,5 @@ test_that("0,0 and other into function call", {
   expect_error(SEC13Flist::SEC_13F_list(0,1))
   expect_error(SEC13Flist::SEC_13F_list(2004,"a"))
   expect_error(SEC13Flist::SEC_13F_list("b","2"))
+  expect_error(SEC13Flist::SEC_13F_list())
 })

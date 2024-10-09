@@ -64,16 +64,13 @@ library(tidyverse)
 ## Return list for Q3 2018
 SEC13Flist_2018_Q3 <- SEC_13F_list(2018,3)
 
-## Current list form SEC website
-SEC13Flist_current <- SEC_13F_list() #Current list form SEC website
-
 ## Customizing
-SEC13Flist_current <- SEC_13F_list() |> 
+SEC13Flist_current <- SEC_13F_list(2023, 3) |> 
   filter(STATUS!="DELETED") |>  #Filter out records with STATUS "DELETED"
   select(-YEAR,-QUARTER) #Remove YEAR and QUARTER columns
 
 ## Verifying CUSIP
-verify_CUSIP <- SEC_13F_list() |> 
+verify_CUSIP <- SEC_13F_list(2023, 3) |> 
   rowwise() |>  ##CUSIPs are not unique, isCusip function is not vectorized and requires single nine character CUSIP as input
   mutate(VALID_CUSIP=isCusip(CUSIP)) ##validating CUSIP
 
