@@ -1,5 +1,9 @@
 # SEC13Flist 
 
+## 1.1.1
+
+* updated tests to reflect content of Q4 files for 2024
+
 ## 1.1.0
 
 * significant change: `SEC_13F_list` function no longer attempts to determine current year and quarter for the official list - it will produce an error when no year and quarter supplied to the function call
