@@ -2,7 +2,7 @@
 
 ## 1.1.1
 
-* updated tests to reflect content of Q4 files for 2024
+* tested 2024-Q4 file
 
 ## 1.1.0
 
