@@ -1,5 +1,9 @@
 # SEC13Flist 
 
+## 1.1.2
+
+* tested 2025-Q1 file
+
 ## 1.1.1
 
 * tested 2024-Q4 file
